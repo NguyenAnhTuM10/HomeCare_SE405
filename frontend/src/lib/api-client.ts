@@ -26,6 +26,8 @@ export class ApiError extends Error {
 type Listener = (user: AuthUser | null) => void;
 
 let accessToken: string | null = null;
+/** Who is signed in — lets the mock API (src/mocks) answer with that user's sample data. */
+let currentUser: AuthUser | null = null;
 let refreshTimer: ReturnType<typeof setTimeout> | null = null;
 let inflightRefresh: Promise<AuthResponse | null> | null = null;
 const listeners = new Set<Listener>();
@@ -48,11 +50,13 @@ export function applySession(data: AuthResponse): void {
   if (refreshTimer) clearTimeout(refreshTimer);
   const inMs = Math.max((data.expiresIn - 60) * 1000, 10_000);
   refreshTimer = setTimeout(() => void refreshSession(), inMs);
+  currentUser = data.user;
   emit(data.user);
 }
 
 export function clearSession(broadcast = true): void {
   accessToken = null;
+  currentUser = null;
   if (refreshTimer) clearTimeout(refreshTimer);
   refreshTimer = null;
   emit(null);
@@ -119,11 +123,25 @@ export async function api<T>(path: string, options: RequestOptions = {}): Promis
 }
 
 /**
+ * Mock API switch. While the business modules are being built, the screens ported from legacy/
+ * read sample data from src/mocks (same routes, data and logic as the prototype backend).
+ * Build with VITE_USE_MOCKS=false to send everything to the real API. See docs/frontend-migration.md.
+ */
+const USE_MOCKS = import.meta.env.VITE_USE_MOCKS !== 'false';
+
+/**
  * `fetch`-compatible variant for screens ported from legacy/ that still read `Response` objects
  * (`res.ok`, `res.json()`). Same guarantees as `api()`: `/api/v1` prefix, in-memory access token,
  * one refresh-and-retry on 401. New code should prefer `api()` (typed, throws ApiError).
+ * Routes the mock API knows are answered locally; every other route goes to the real backend.
  */
 export async function apiFetch(path: string, init: RequestInit = {}): Promise<Response> {
+  if (USE_MOCKS) {
+    const { mockFetch } = await import('../mocks');
+    const mocked: Response | null = await mockFetch(path, init, currentUser);
+    if (mocked) return mocked;
+  }
+
   const run = () => {
     const headers = new Headers(init.headers);
     if (accessToken) headers.set('Authorization', `Bearer ${accessToken}`);
