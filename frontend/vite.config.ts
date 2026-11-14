@@ -1,12 +1,13 @@
 import { fileURLToPath } from 'node:url';
-import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 const API_TARGET = process.env.VITE_API_PROXY ?? 'http://localhost:4000';
 
+// Tailwind runs through PostCSS (postcss.config.js + tailwind.config.js) with the SAME versions as
+// legacy/web, so the ported screens render exactly like the prototype (Tailwind 4 changed colours).
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   resolve: {
     alias: {
       // Compile the shared contracts from source -> instant HMR when a schema changes

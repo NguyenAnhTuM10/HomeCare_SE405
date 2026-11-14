@@ -4,3 +4,12 @@ pnpm-lock.yaml
 **/coverage/
 backend/src/generated/
 backend/prisma/migrations/
+
+# Screens ported 1:1 from legacy/ keep the prototype's formatting, so `diff` against legacy/
+# shows only the auth/API wiring (docs/frontend-migration.md)
+frontend/src/features/
+frontend/src/layouts/CustomerLayout.jsx
+frontend/src/layouts/styles/
+frontend/src/pages/LoginPage.jsx
+frontend/src/pages/NotFound.jsx
+frontend/src/mocks/seed.json

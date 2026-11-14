@@ -1,15 +1,18 @@
-import { Loader2 } from 'lucide-react';
-import { lazy, Suspense, type ReactNode } from 'react';
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 import { RequireAuth } from './auth/RequireAuth';
+import { PortalLoading } from './auth/PortalLoading';
 import { AdminLayout } from './layouts/AdminLayout';
-import { CustomerLayout } from './layouts/CustomerLayout';
 import { AdminUsersPage } from './pages/admin/AdminUsersPage';
-import { LoginPage } from './pages/LoginPage';
-import { NotFoundPage } from './pages/NotFoundPage';
+import LoginPage from './pages/LoginPage';
+import NotFound from './pages/NotFound';
 
-// Screens ported from legacy/web/src (see docs/frontend-migration.md). Each one is a separate
-// chunk so a customer never downloads the technician portal and vice versa.
+// Screens ported 1:1 from legacy/web/src (docs/frontend-migration.md). Loaded the same way as in the
+// prototype: the customer shell + dashboard after sign-in (RootShell), each other screen on demand
+// (FeatureLoader). This also keeps the prototype's stylesheet order, which the colours depend on.
+const CustomerLayout = lazy(() =>
+  import('./layouts/CustomerLayout').then((m) => ({ default: m.CustomerLayout })),
+);
 const DashboardPage = lazy(() => import('./features/dashboard/DashboardPage'));
 const CleaningPage = lazy(() => import('./features/cleaning/CleaningPage'));
 const RepairPage = lazy(() => import('./features/repair/RepairPage'));
@@ -20,21 +23,6 @@ const PaymentPage = lazy(() => import('./features/payment/PaymentPage'));
 const ProfilePage = lazy(() => import('./features/profile/ProfilePage'));
 const TechnicianPage = lazy(() => import('./features/technician/TechnicianPage'));
 
-function Screen({ children }: { children: ReactNode }) {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center py-16 text-sm font-semibold text-slate-500">
-          <Loader2 className="mr-2 animate-spin" size={18} />
-          Đang tải màn hình...
-        </div>
-      }
-    >
-      {children}
-    </Suspense>
-  );
-}
-
 export function App() {
   return (
     <Routes>
@@ -43,76 +31,35 @@ export function App() {
       <Route
         element={
           <RequireAuth roles={['CUSTOMER']}>
-            <CustomerLayout />
+            <Suspense fallback={<PortalLoading />}>
+              <CustomerLayout />
+            </Suspense>
           </RequireAuth>
         }
       >
-        <Route
-          index
-          element={
-            <Screen>
-              <DashboardPage />
-            </Screen>
-          }
-        />
-        <Route
-          path="cleaning/*"
-          element={
-            <Screen>
-              <CleaningPage />
-            </Screen>
-          }
-        />
-        <Route
-          path="repair/*"
-          element={
-            <Screen>
-              <RepairPage />
-            </Screen>
-          }
-        />
-        <Route
-          path="appliance/*"
-          element={
-            <Screen>
-              <AppliancePage />
-            </Screen>
-          }
-        />
-        <Route
-          path="booking/*"
-          element={
-            <Screen>
-              <BookingPage />
-            </Screen>
-          }
-        />
-        <Route
-          path="tracking/*"
-          element={
-            <Screen>
-              <TrackingPage />
-            </Screen>
-          }
-        />
-        <Route
-          path="payment/*"
-          element={
-            <Screen>
-              <PaymentPage />
-            </Screen>
-          }
-        />
-        <Route
-          path="profile/*"
-          element={
-            <Screen>
-              <ProfilePage />
-            </Screen>
-          }
-        />
+        <Route index element={<DashboardPage />} />
+        <Route path="cleaning/*" element={<CleaningPage />} />
+        <Route path="repair/*" element={<RepairPage />} />
+        <Route path="appliance/*" element={<AppliancePage />} />
+        <Route path="booking/*" element={<BookingPage />} />
+        <Route path="tracking/*" element={<TrackingPage />} />
+        <Route path="payment/*" element={<PaymentPage />} />
+        <Route path="profile/*" element={<ProfilePage />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
 
+      <Route
+        path="/technician/*"
+        element={
+          <RequireAuth roles={['TECHNICIAN']}>
+            <Suspense fallback={<PortalLoading />}>
+              <TechnicianPage />
+            </Suspense>
+          </RequireAuth>
+        }
+      />
+
+      {/* New in the MVP (no prototype screen): operations console for admins */}
       <Route
         path="/admin"
         element={
@@ -124,19 +71,6 @@ export function App() {
         <Route index element={<Navigate to="users" replace />} />
         <Route path="users" element={<AdminUsersPage />} />
       </Route>
-
-      <Route
-        path="/technician/*"
-        element={
-          <RequireAuth roles={['TECHNICIAN']}>
-            <Screen>
-              <TechnicianPage />
-            </Screen>
-          </RequireAuth>
-        }
-      />
-
-      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

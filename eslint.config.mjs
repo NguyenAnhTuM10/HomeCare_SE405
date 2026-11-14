@@ -79,13 +79,24 @@ export default tseslint.config(
 
   // ---------- Web (React) ----------
   {
-    files: ['frontend/**/*.{ts,tsx,jsx}'],
+    files: ['frontend/**/*.{ts,tsx,js,jsx}'],
     languageOptions: { globals: { ...globals.browser } },
     plugins: { 'react-hooks': reactHooks },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },
+  },
+  // Screens ported 1:1 from legacy/ keep the prototype's leftovers (unused imports/helpers) so they
+  // stay diff-able against legacy/; report them as warnings until the owner rewrites the screen.
+  {
+    files: [
+      'frontend/src/features/**/*.jsx',
+      'frontend/src/layouts/CustomerLayout.jsx',
+      'frontend/src/pages/LoginPage.jsx',
+      'frontend/src/pages/NotFound.jsx',
+    ],
+    rules: { '@typescript-eslint/no-unused-vars': 'warn' },
   },
   // Config files are Node scripts, even inside frontend/
   {
