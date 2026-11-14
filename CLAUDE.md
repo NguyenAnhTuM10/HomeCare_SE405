@@ -7,17 +7,17 @@ Customers use the web app, technicians the Expo mobile app, admins the web opera
 
 pnpm monorepo (Node ≥ 22, pnpm 10 via corepack):
 
-| Path                             | What                                                                                                                                                                                                |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `backend`                        | NestJS 11 modular monolith. Roles: `api` (HTTP/WS, behind Nginx) and `worker` (outbox relay, jobs) — same image                                                                                     |
-| `backend/prisma/schema/*.prisma` | Prisma 7 schema, **one file per module** (owner in header)                                                                                                                                          |
-| `frontend`                       | React 19 + Vite + Tailwind 4 + TanStack Query + react-router 7                                                                                                                                      |
-| `mobile`                         | Expo app (to be created by TV4)                                                                                                                                                                     |
-| `payment-sandbox`                | Mock VNPay gateway (to be created by TV3, see ADR-0003)                                                                                                                                             |
-| `packages/shared`                | zod schemas, enums, error codes, socket events — the contract between server and clients                                                                                                            |
-| `infra/`                         | docker compose (dev deps; full LB stack), Nginx, Prometheus/Grafana                                                                                                                                 |
-| `docs/`                          | `architecture/system-design.md`, `adr/`, `specs/`, `team.md`                                                                                                                                        |
-| `legacy/`                        | Old JS prototype. Its UI is **reused**: copy screens into `frontend` and rewire them per `docs/frontend-migration.md` (no localStorage tokens, no client-sent prices/status). Never import from it. |
+| Path                             | What                                                                                                                                                                                            |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `backend`                        | NestJS 11 modular monolith. Roles: `api` (HTTP/WS, behind Nginx) and `worker` (outbox relay, jobs) — same image                                                                                 |
+| `backend/prisma/schema/*.prisma` | Prisma 7 schema, **one file per module** (owner in header)                                                                                                                                      |
+| `frontend`                       | React 19 + Vite + Tailwind **3.4.19** + lucide-react **1.71.0** (both pinned to the prototype's versions) + TanStack Query + react-router 7. Mock API for business data in `frontend/src/mocks` |
+| `mobile`                         | Expo app (to be created by TV4)                                                                                                                                                                 |
+| `payment-sandbox`                | Mock VNPay gateway (to be created by TV3, see ADR-0003)                                                                                                                                         |
+| `packages/shared`                | zod schemas, enums, error codes, socket events — the contract between server and clients                                                                                                        |
+| `infra/`                         | docker compose (dev deps; full LB stack), Nginx, Prometheus/Grafana                                                                                                                             |
+| `docs/`                          | `architecture/system-design.md`, `adr/`, `specs/`, `team.md`                                                                                                                                    |
+| `legacy/`                        | Old JS prototype = the **UI specification**. Its screens live 1:1 in `frontend` (see `docs/frontend-migration.md`). Never import from it.                                                       |
 
 ## Commands
 
@@ -48,6 +48,8 @@ Reference implementation for all of the above: `backend/src/modules/identity` + 
 
 ## Conventions
 
+- **UI = the prototype, pixel for pixel.** Screens in `frontend/src/features`, `layouts/CustomerLayout.jsx`, `pages/LoginPage.jsx` must stay identical to `legacy/web/src` (customer requirement): never redesign, restyle, reword or "improve" them, never upgrade Tailwind/lucide. Change only data wiring, and re-check against legacy as described in `docs/frontend-migration.md` §3. New screens (e.g. admin console) reuse the same visual language.
+- Business screens currently read mock data (`frontend/src/mocks`, a port of the prototype backend). When building a real endpoint, return the mock's response shape and delete its mock route.
 - Code, identifiers, commits: English. UI text, user-facing error messages, docs: Vietnamese.
 - Branches: start from `dev`, name `feat/<module>-<topic>` / `fix/...` / `chore/...`, open the PR **into `dev`** (staging). Only a release PR `dev → main` or `hotfix/*` may target `main` (CI job "Branch policy" enforces it). See ADR-0007.
 - Conventional Commits; PR template checklist must be satisfied. No AI co-author trailers in commits.

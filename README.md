@@ -64,6 +64,8 @@ pnpm dev
 - API + Swagger: <http://localhost:4000/api/docs>
 - Mailpit (email dev): <http://localhost:8025>
 
+Giao diện giống y hệt bản prototype. Đăng nhập dùng API thật; các màn hình nghiệp vụ tạm dùng **dữ liệu giả** chép từ backend cũ (`frontend/src/mocks`), tải lại trang là dữ liệu về như ban đầu. Xem [docs/frontend-migration.md](docs/frontend-migration.md).
+
 ### Tài khoản mẫu (mật khẩu chung: `Homecare@123`)
 
 | Vai trò       | Đăng nhập bằng                                      |

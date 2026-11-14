@@ -20,7 +20,7 @@ Monorepo pnpm, NestJS + Prisma + Postgres + Redis, shared kernel (config, log, l
 
 ### Phase 1 — Luồng đặt dịch vụ cơ bản
 
-> **Giao diện: dùng lại bản cũ, không viết lại.** Toàn bộ màn hình cũ đã được chuyển vào `frontend/src/features` (bước 1 ✅). Việc của mỗi người là làm API để màn hình của mình có dữ liệu và xử lý các `TODO` trong màn hình đó (bước 2). Bảng màn hình ↔ API ↔ người phụ trách và các chỗ bắt buộc sửa (token, giá tiền, thanh toán): [docs/frontend-migration.md](frontend-migration.md).
+> **Giao diện = bản prototype, giống y hệt (yêu cầu của khách hàng).** Toàn bộ màn hình cũ đã chạy trong `frontend/` và đã được so khớp từng màn hình với bản cũ; dữ liệu hiện lấy từ **mock API** (chép từ backend cũ). Việc của mỗi người: làm API thật trả đúng dạng dữ liệu của mock, xóa route mock tương ứng, xử lý các `TODO`, và **không sửa giao diện**. Chi tiết: [docs/frontend-migration.md](frontend-migration.md).
 
 | TV  | Việc                                                                                                                                       | Xong khi                                                                     |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
