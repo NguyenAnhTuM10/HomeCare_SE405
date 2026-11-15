@@ -1,0 +1,113 @@
+// @ts-check
+import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
+import reactHooks from 'eslint-plugin-react-hooks';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+const crossModuleMessage =
+  'Modular monolith rule: import another module only through its public index (e.g. "../identity"), never its internals. See docs/architecture/system-design.md#module-boundaries.';
+
+export default tseslint.config(
+  {
+    ignores: [
+      'legacy/**',
+      'tests/load/**',
+      '**/dist/**',
+      '**/coverage/**',
+      '**/node_modules/**',
+      'backend/src/generated/**',
+      'backend/prisma/migrations/**',
+    ],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/consistent-type-imports': 'off',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
+  },
+
+  // ---------- API (NestJS) ----------
+  {
+    files: ['backend/**/*.ts'],
+    languageOptions: { globals: { ...globals.node, ...globals.jest } },
+  },
+  // Module boundaries: files at a module root (modules/<name>/*.ts)
+  {
+    files: ['backend/src/modules/*/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        { patterns: [{ regex: '^\\.\\./[^./][^/]*/.+', message: crossModuleMessage }] },
+      ],
+    },
+  },
+  // Files one level deeper (modules/<name>/<dir>/*.ts)
+  {
+    files: ['backend/src/modules/*/*/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        { patterns: [{ regex: '^\\.\\./\\.\\./[^./][^/]*/.+', message: crossModuleMessage }] },
+      ],
+    },
+  },
+  // Shared kernel must never depend on business modules
+  {
+    files: ['backend/src/common/**/*.ts', 'backend/src/infra/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '(^|/)modules(/|$)',
+              message:
+                'common/ and infra/ are the shared kernel and must not import business modules.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  // ---------- Web (React) ----------
+  {
+    files: ['frontend/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: { globals: { ...globals.browser } },
+    plugins: { 'react-hooks': reactHooks },
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
+  // Screens ported 1:1 from legacy/ keep the prototype's leftovers (unused imports/helpers) so they
+  // stay diff-able against legacy/; report them as warnings until the owner rewrites the screen.
+  {
+    files: [
+      'frontend/src/features/**/*.jsx',
+      'frontend/src/layouts/CustomerLayout.jsx',
+      'frontend/src/pages/LoginPage.jsx',
+      'frontend/src/pages/NotFound.jsx',
+    ],
+    rules: { '@typescript-eslint/no-unused-vars': 'warn' },
+  },
+  // Config files are Node scripts, even inside frontend/
+  {
+    files: ['frontend/*.{js,mjs,cjs,ts}'],
+    languageOptions: { globals: { ...globals.node } },
+  },
+
+  // ---------- Config files ----------
+  {
+    files: ['**/*.{js,mjs,cjs}'],
+    languageOptions: { globals: { ...globals.node } },
+  },
+  prettier,
+);
