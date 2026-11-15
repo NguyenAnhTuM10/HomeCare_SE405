@@ -2,7 +2,7 @@
 # Build from the repository root:  docker build -f backend/Dockerfile -t homecare-api .
 # One image, two process roles:  node dist/main.js (api)  |  node dist/worker.js (worker)
 
-FROM node:24-alpine AS base
+FROM node:26-alpine AS base
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH
 RUN corepack enable && corepack prepare pnpm@10.28.0 --activate
 WORKDIR /repo
@@ -27,7 +27,7 @@ WORKDIR /repo/backend
 CMD ["pnpm", "exec", "prisma", "migrate", "deploy"]
 
 # ---------- runtime: small, non-root, production deps only ----------
-FROM node:24-alpine AS runtime
+FROM node:26-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 RUN addgroup -S app && adduser -S app -G app
