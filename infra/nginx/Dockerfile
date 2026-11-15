@@ -2,7 +2,7 @@
 # Edge container = load balancer for the API replicas + static host for the web SPA.
 # Build from the repository root:  docker build -f infra/nginx/Dockerfile -t homecare-edge .
 
-FROM node:24-alpine AS web
+FROM node:26-alpine AS web
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH
 RUN corepack enable && corepack prepare pnpm@10.28.0 --activate
 WORKDIR /repo
