@@ -25,7 +25,9 @@ Four people build in parallel on one modular monolith. This workflow keeps every
 - Use `superpowers:test-driven-development`: write the failing test first.
 - Build the API part following the `nest-module` skill (folder layout, public `index.ts`, guards, outbox, audit).
 - For DB design questions use the `database-design` plugin agents (`database-architect`, skill `postgresql-table-design`).
-- For UI use `frontend-design`; reuse the visual language of `legacy/web/src/...` screens.
+- **Ported screens** (`frontend/src/features`, `layouts/CustomerLayout.jsx`, `pages/LoginPage.jsx`) must stay identical to `legacy/web/src` (customer requirement): change only data wiring. When an endpoint replaces a mock, return the mock's response shape, delete that route from `frontend/src/mocks/legacy-server.js`, handle the screen's `TODO`s and re-compare with legacy (`docs/frontend-migration.md` §3, §6).
+- Use `frontend-design` **only for new screens** (e.g. admin console), reusing the visual language of the legacy screens. Never upgrade `tailwindcss` (3.4.19) or `lucide-react` (1.71.0).
+- Tick the item in `docs/team.md` §2 in the same PR.
 - Payments work: `payment-processing` plugin (patterns) + ADR-0003 (our VNPay-like protocol).
 - Realtime/infra work: `observability-monitoring`, `cicd-automation` plugins.
 

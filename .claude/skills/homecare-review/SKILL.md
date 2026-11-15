@@ -48,10 +48,13 @@ Review the diff (`git diff main...HEAD` unless told otherwise). For each finding
 - [ ] Unit tests for pure logic; e2e for each new endpoint **including refusals** (401/403/404-IDOR/400/409).
 - [ ] Tests assert on `code`, not on Vietnamese messages.
 
-## 7. Frontend (minor)
+## 7. Frontend
 
 - [ ] Access token never persisted to localStorage/sessionStorage.
 - [ ] API errors shown via `ApiError.message`; branching on `ApiError.code`.
 - [ ] Client-side role checks are UX only — server enforces.
+- [ ] Ported screens (`features/`, `layouts/CustomerLayout.jsx`, `pages/LoginPage.jsx`) unchanged vs `legacy/web/src` except data wiring — no restyling, rewording or added elements (**blocker**: customer requirement). `diff` against the legacy file listed in `docs/frontend-migration.md` §4.
+- [ ] `tailwindcss` stays `3.4.19` and `lucide-react` stays `1.71.0` (exact, no `^`).
+- [ ] A real endpoint that replaces a mock returns the mock's response shape and the PR deletes that mock route.
 
 Finish with a one-line verdict: **Approve**, **Approve with nits**, or **Request changes** (list blocker ids).

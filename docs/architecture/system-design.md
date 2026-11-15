@@ -3,15 +3,17 @@
 > Tài liệu kiến trúc chính của đồ án. Mọi thay đổi kiến trúc phải cập nhật file này **và** thêm một ADR trong `docs/adr/`.
 > Sơ đồ viết bằng Mermaid (GitHub render trực tiếp; xuất ảnh cho báo cáo bằng [mermaid.live](https://mermaid.live)).
 
+> **Hiện trạng (2026-11-15):** đã có nền móng (shared kernel, outbox, audit, health, metrics, load balancer, CI/CD) và **module identity**. Frontend dùng lại **giao diện bản prototype, giống y hệt** (React 19 + Vite, Tailwind 3.4.19 ghim đúng phiên bản cũ). Các màn hình nghiệp vụ tạm đọc **mock API** chép từ backend cũ (`frontend/src/mocks`); riêng đăng nhập và Admin › Người dùng gọi API thật. Các module khác trong tài liệu này là **thiết kế đích**, làm theo checklist ở [team.md](../team.md) mục 2. Hướng dẫn giao diện: [frontend-migration.md](../frontend-migration.md).
+
 ## 1. Bài toán
 
 HomeCare là nền tảng đặt dịch vụ chăm sóc nhà theo yêu cầu (vệ sinh, sửa chữa, bảo trì thiết bị). Ba nhóm người dùng:
 
-| Vai trò             | Kênh               | Việc chính                                                                        |
-| ------------------- | ------------------ | --------------------------------------------------------------------------------- |
-| Khách hàng          | Web (React)        | Đặt lịch, thanh toán, theo dõi kỹ thuật viên realtime, quản lý thiết bị trong nhà |
-| Kỹ thuật viên (KTV) | App di động (Expo) | Nhận job, chia sẻ GPS, chụp ảnh trước/sau, hoàn tất job                           |
-| Quản trị/Điều phối  | Web console        | Quản lý người dùng, điều phối, đối soát thanh toán, giám sát bản đồ realtime      |
+| Vai trò             | Kênh                                                | Việc chính                                                                        |
+| ------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Khách hàng          | Web (React)                                         | Đặt lịch, thanh toán, theo dõi kỹ thuật viên realtime, quản lý thiết bị trong nhà |
+| Kỹ thuật viên (KTV) | Web `/technician` (hiện có); app Expo nếu nhóm chốt | Nhận job, chia sẻ GPS, chụp ảnh trước/sau, hoàn tất job                           |
+| Quản trị/Điều phối  | Web console                                         | Quản lý người dùng, điều phối, đối soát thanh toán, giám sát bản đồ realtime      |
 
 ### 1.1 Yêu cầu chức năng (MVP)
 
@@ -54,7 +56,7 @@ Kết luận: một Postgres + một Redis đủ cho MVP; nút thắt đầu ti�
 flowchart LR
   customer([Khách hàng]) -->|HTTPS| web[Web app]
   admin([Quản trị / Điều phối]) -->|HTTPS| web
-  tech([Kỹ thuật viên]) -->|HTTPS + WSS| mobile[App KTV - Expo]
+  tech([Kỹ thuật viên]) -->|HTTPS + WSS| mobile[Màn hình KTV\nweb hiện có / Expo dự kiến]
   web --> hc[[HomeCare Platform]]
   mobile --> hc
   hc -->|redirect + IPN ký HMAC| pay[Cổng thanh toán\nmock VNPay / VNPay sandbox]
@@ -68,8 +70,8 @@ flowchart LR
 ```mermaid
 flowchart TB
   subgraph Clients
-    web[Web SPA\nReact + Vite + TS]
-    app[Technician app\nExpo / React Native]
+    web[Web SPA\nReact 19 + Vite + Tailwind 3.4\ngiao diện 1:1 bản prototype]
+    app[Technician app\nExpo / React Native - dự kiến]
   end
 
   subgraph Edge
@@ -105,7 +107,7 @@ flowchart TB
   prom -. scrape /metrics .-> api1 & api2 & api3
 ```
 
-**Vì sao modular monolith?** 4 người, 1 học kỳ: microservices sẽ tiêu tốn thời gian vào hạ tầng (service discovery, distributed transaction, nhiều pipeline) thay vì nghiệp vụ. Modular monolith cho **ranh giới module rõ ràng như microservices** nhưng **triển khai đơn giản như monolith**, và vẫn scale ngang được. Đường tách thành microservice được mô tả ở mục 9. Chi tiết: [ADR-0001](../adr/0001-modular-monolith.md).
+**Vì sao modular monolith?** 4 người, 1 học kỳ: microservices sẽ tiêu tốn thời gian vào hạ tầng (service discovery, distributed transaction, nhiều pipeline) thay vì nghiệp vụ. Modular monolith cho **ranh giới module rõ ràng như microservices** nhưng **triển khai đơn giản như monolith**, và vẫn scale ngang được. Đường tách thành microservice được mô tả ở mục 11. Chi tiết: [ADR-0001](../adr/0001-modular-monolith.md).
 
 ### 2.3 Một image — hai vai trò tiến trình
 
@@ -335,11 +337,12 @@ flowchart LR
 
 ## 11. Đánh đổi & hướng phát triển
 
-| Quyết định                 | Được                                            | Mất                             | Khi nào xem lại                                   |
-| -------------------------- | ----------------------------------------------- | ------------------------------- | ------------------------------------------------- |
-| Modular monolith           | Phát triển nhanh, transaction ACID giữa module  | Không scale riêng từng module   | Khi một module (tracking) cần tài nguyên khác hẳn |
-| JWT + Redis denylist       | Stateless, thu hồi tức thì                      | Phụ thuộc Redis cho mọi request | Redis Sentinel/Cluster khi cần HA                 |
-| Outbox thay message broker | Không thêm hạ tầng                              | Độ trễ poll ~1 s                | Chuyển sang Kafka/RabbitMQ khi tách service       |
-| Mock VNPay                 | Demo được mọi kịch bản (thất bại, hủy, IPN trễ) | Không phải tiền thật            | Bật adapter VNPay sandbox khi có merchant         |
+| Quyết định                 | Được                                                              | Mất                                                     | Khi nào xem lại                                                          |
+| -------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Modular monolith           | Phát triển nhanh, transaction ACID giữa module                    | Không scale riêng từng module                           | Khi một module (tracking) cần tài nguyên khác hẳn                        |
+| JWT + Redis denylist       | Stateless, thu hồi tức thì                                        | Phụ thuộc Redis cho mọi request                         | Redis Sentinel/Cluster khi cần HA                                        |
+| Outbox thay message broker | Không thêm hạ tầng                                                | Độ trễ poll ~1 s                                        | Chuyển sang Kafka/RabbitMQ khi tách service                              |
+| Mock VNPay                 | Demo được mọi kịch bản (thất bại, hủy, IPN trễ)                   | Không phải tiền thật                                    | Bật adapter VNPay sandbox khi có merchant                                |
+| Giao diện 1:1 + mock API   | Đúng yêu cầu khách hàng; 4 người làm song song, không chờ backend | Màn hình `.jsx` chưa có kiểu; mock có thể lệch API thật | Mỗi lần nối API thật cho một màn hình (xóa route mock, so lại giao diện) |
 
 **Lộ trình tách microservice:** module `tracking` là ứng viên đầu tiên (tải ghi cao, giao thức WebSocket riêng). Nhờ ranh giới module + event qua outbox, tách bằng cách: (1) chuyển outbox relay sang publish lên broker, (2) chuyển bảng `location_pings` sang DB riêng, (3) Nginx route `/socket.io` sang service mới.
