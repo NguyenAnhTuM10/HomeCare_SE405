@@ -89,22 +89,6 @@ Ghi chú về ảnh: built-in browser không có công cụ chọn file, nên �
 8. Tab Vị trí "tuyến đường đến" job đang chọn, kể cả job ngày mai hoặc đã từ chối.
 9. Rủi ro khi test song song: refresh token là cookie dùng chung cả browser pane → đăng nhập ở tab này đổi phiên của các tab khác khi chúng reload.
 
-## (F) So với docs/app-walkthrough.md
-
-Đúng:
-
-- Mục 0/3: màn KTV chạy mock, đăng nhập bằng email hoặc mã đều được; 5 tab; số liệu dashboard ban đầu (4 việc, 580.000đ); Vị trí hiển thị 10.7777/106.7015 mô phỏng, chu kỳ 5 s; Báo cáo bắt buộc 2 ảnh; Hồ sơ TECH-088, 4.9/1284; job HC-24xx không liên quan booking.
-- Mục 2.9: "mock cho phép nhảy trạng thái bất kỳ" — đã xác nhận bằng thao tác cho job KTV.
-
-Khác / bổ sung:
-
-- Docs mục 3: "Mock: thiếu ảnh → 400". Thực tế client chặn trước bằng toast, mock không được gọi. Mock có kiểm tra (400) nhưng chỉ khi gọi trực tiếp.
-- Docs nói "Thu nhập = tổng giá các việc đã nhận". Đúng hơn: gồm Đã nhận + Đang di chuyển + Đang thực hiện + Hoàn thành.
-- Docs không nêu: nút "Hoàn thành" ở tab Công việc bỏ qua ảnh; báo cáo gửi lặp; Từ chối có thể đảo lại; dashboard "phân công" loại job Từ chối.
-- Docs: checklist có "chụp ảnh trước, vệ sinh lưới lọc…". Đó là checklist riêng của HC-2408; mỗi job một checklist và chỉ để hiển thị.
-- Docs: "Layout sidebar (ẩn trên màn hẹp, có tab trên cùng)" đúng, nhưng thiếu ý mất nút Đăng xuất trên mobile.
-- Docs mục 0 "không liên quan booking seed": xác nhận. Job seed không có trường `bookingId` (mock sẽ cập nhật booking nếu có, nhưng giá trị luôn null); mã HC-24xx khác hệ mã BK-xxxx. Trùng hợp: khách HC-2408 tên "Nguyễn Minh Khang" trùng tên khách seed và cũng trùng tên một KTV trong booking, nhưng không có liên kết id. Liên hệ duy nhất trong code: `bookedTechniciansAt` coi job KTV đang hoạt động là lịch bận của "Phạm Quốc Việt" khi khách đặt cùng khung giờ (định dạng giờ "Hôm nay, 10:00" khó khớp với giờ booking; chưa kiểm chứng trên UI).
-
 ## (G) Mobile 375×812
 
 - Không cuộn ngang (scrollWidth = 375). Sidebar ẩn; header "Xin chào…" + 5 tab dạng nút xếp 2 hàng (3 + 2).

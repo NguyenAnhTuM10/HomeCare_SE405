@@ -2,38 +2,91 @@
 
 Đồ án SE405 — nhóm 4 người. **Sàn dịch vụ tại nhà** (vệ sinh, sửa chữa, bảo trì thiết bị): khách và kỹ thuật viên dùng chung một **app Expo**, HomeCare đứng giữa để giữ tiền, điều phối và giải quyết khiếu nại; quản trị viên điều hành qua web console.
 
-**Kiến trúc:** NestJS modular monolith · PostgreSQL + Prisma · Redis · Nginx load balancer (nhiều replica) · React 19 + Vite (giao diện 1:1 bản prototype) · Expo _(dự kiến)_ · Docker · GitHub Actions CI/CD · Prometheus/Grafana.
+**Kiến trúc:** NestJS modular monolith · PostgreSQL + Prisma · Redis · Nginx load balancer (nhiều replica) · React 19 + Vite (giao diện 1:1 bản prototype) · Expo (app khách + thợ) · Docker · GitHub Actions CI/CD · Prometheus/Grafana.
 
-| Tài liệu                                                                 | Nội dung                                                                                    |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| [docs/ke-hoach.md](docs/ke-hoach.md)                                     | **Đọc trước:** kế hoạch đến buổi bảo vệ, cách làm trên Jira, cách tránh conflict            |
-| [docs/tinh-nang-noi-bat.md](docs/tinh-nang-noi-bat.md)                   | Tính năng nổi bật khi hoàn thành, theo hành trình demo                                      |
-| [docs/specs/current-app.md](docs/specs/current-app.md)                   | App đang làm gì thật (kiểm thử 22/11), lỗi tìm được, tính năng đã có / sẽ làm               |
-| [docs/team.md](docs/team.md)                                             | Phân công, **checklist đã làm / chưa làm / hướng phát triển**, lộ trình, quy trình làm việc |
-| [docs/architecture/system-design.md](docs/architecture/system-design.md) | Thiết kế hệ thống: C4, ERD, luồng chính, chống bypass, load balancing, CI/CD                |
-| [docs/frontend-migration.md](docs/frontend-migration.md)                 | Quy tắc giao diện giống y hệt bản cũ, mock API, cách nối API thật                           |
-| [docs/specs](docs/specs)                                                 | Spec từng tính năng; [identity](docs/specs/identity.md) là bản mẫu                          |
-| [docs/adr](docs/adr)                                                     | Các quyết định kiến trúc (ADR 0001–0007)                                                    |
-| [CLAUDE.md](CLAUDE.md)                                                   | Quy tắc bắt buộc cho cả nhóm (và cho Claude Code)                                           |
+| Tài liệu                                                                 | Nội dung                                                                         |
+| ------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| [docs/ke-hoach.md](docs/ke-hoach.md)                                     | **Đọc trước:** kế hoạch đến buổi bảo vệ, cách làm trên Jira, cách tránh conflict |
+| [docs/specs/current-app.md](docs/specs/current-app.md)                   | App đang làm gì thật (kiểm thử 22/11), lỗi tìm được, tính năng đã có / sẽ làm    |
+| [docs/team.md](docs/team.md)                                             | Phân công, những gì đã làm, quy trình nhánh/PR, cấu hình GitHub                  |
+| [docs/architecture/system-design.md](docs/architecture/system-design.md) | Thiết kế hệ thống: C4, ERD, luồng chính, chống bypass, load balancing, CI/CD     |
+| [docs/frontend-migration.md](docs/frontend-migration.md)                 | Quy tắc giao diện giống y hệt bản cũ, mock API, cách nối API thật                |
+| [docs/specs](docs/specs)                                                 | Spec từng tính năng; [identity](docs/specs/identity.md) là bản mẫu               |
+| [docs/adr](docs/adr)                                                     | Các quyết định kiến trúc (ADR 0001–0007)                                         |
+| [CLAUDE.md](CLAUDE.md)                                                   | Quy tắc bắt buộc cho cả nhóm (và cho Claude Code)                                |
 
-## Sản phẩm khi hoàn thành (cuối 12/2026)
+## Sản phẩm khi hoàn thành (cuối 12/2026) — nhóm bám theo phần này
 
-- **Gợi ý theo ngữ cảnh:** app gợi ý dịch vụ kèm lý do (vị trí, thời tiết, thiết bị trong nhà, xu hướng khu vực) và gửi push chủ động; tem QR trên thiết bị để xem lịch sử và đặt lại một chạm.
-- **Đặt lịch bằng chat với AI:** AI tự báo giá, xem lịch trống, tạo lịch chờ khách xác nhận; cùng bộ công cụ mở qua MCP.
-- **Thanh toán kiểu sàn:** cổng giả lập VNPay (thẻ test + OTP), HomeCare giữ tiền đến khi khách xác nhận xong việc, hoàn tiền, hoa hồng cho thợ.
-- **Realtime:** vị trí thợ trên bản đồ, ETA, tự báo "đã đến"; chạy được qua nhiều máy chủ sau load balancer.
-- **Chăm sóc khách hàng:** chat khách–thợ không lộ số điện thoại, bot hỗ trợ chuyển nhân viên khi cần, khiếu nại gắn với tiền.
+### 1. Khách mở app: app tự biết khách cần gì
 
-Chi tiết: [docs/tinh-nang-noi-bat.md](docs/tinh-nang-noi-bat.md).
+- Đăng nhập bằng vân tay hoặc Face ID.
+- Trang chủ có mục "Gợi ý cho bạn" kèm lý do, ví dụ: "Máy lạnh phòng ngủ đã 5 tháng chưa vệ sinh, tuần này Thủ Đức nắng 37°C, có 3 thợ rảnh trong bán kính 2 km".
+- Gợi ý dựa trên vị trí, thời tiết, thiết bị trong nhà, lịch sử đặt và xu hướng khu vực. Không mở app vẫn nhận được push chủ động với nội dung tương tự.
+- Tem QR dán trên máy lạnh, máy giặt: khách quét là thấy lịch sử bảo trì của đúng máy đó và đặt lại một chạm. Lần đầu đến nhà, thợ là người dán tem và nhập model, nên khách không phải tự gõ thông tin thiết bị.
+
+### 2. Đặt lịch bằng cách chat với AI
+
+- Khách gõ (hoặc nói): "Đặt vệ sinh máy lạnh sáng thứ 7 ở nhà".
+- AI tự tìm dịch vụ, báo giá, xem khung giờ còn trống, hỏi lại khi cần, rồi đưa ra thẻ đặt lịch có nút Xác nhận.
+- Giá luôn do server tính, và thao tác nào dính đến tiền cũng phải chính khách bấm xác nhận.
+- Cùng bộ công cụ đó được mở qua MCP: lúc demo, đặt được lịch HomeCare ngay từ Claude Desktop.
+- Vẫn đặt lịch theo cách bấm truyền thống được. Hệ thống tự chọn thợ phù hợp theo khoảng cách, kỹ năng, điểm đánh giá và lịch trống; thợ không nhận trong thời hạn thì tự chuyển cho người kế tiếp.
+
+### 3. Thanh toán kiểu sàn
+
+- Trả qua cổng giả lập kiểu VNPay: nhập thẻ test, nhập OTP. App không bao giờ chạm vào số thẻ.
+- Tiền được HomeCare giữ lại, chưa trả cho thợ.
+- Thẻ đã lưu thì lần sau trả bằng một chạm, xác nhận bằng vân tay.
+- Demo được đủ tình huống: thành công, thẻ bị từ chối, hủy giữa chừng, cổng gửi báo kết quả 2 lần mà vẫn chỉ ghi nhận 1 lần.
+
+### 4. Theo dõi thợ như Grab
+
+- Bản đồ hiện vị trí thợ di chuyển realtime cùng ETA.
+- Thợ vào bán kính 100 m quanh nhà thì app tự báo "Thợ đã đến", thợ không cần bấm gì.
+- Hệ thống phát hiện và đánh dấu GPS giả (vị trí nhảy bất thường).
+- Chạy được khi khách và thợ kết nối vào hai máy chủ khác nhau sau load balancer. Đây là phần nối tiếp seminar Load Balancer của nhóm.
+
+### 5. Phía thợ
+
+- Nhận việc từ thông báo push, có nút Nhận/Từ chối.
+- GPS chạy nền, tự điều chỉnh tần suất theo tốc độ di chuyển và mức pin.
+- Chụp ảnh trước/sau bằng camera, ảnh được lưu lên server; không có ảnh thì không hoàn thành được việc.
+- Mất sóng vẫn cập nhật được việc, có mạng lại thì tự đồng bộ (nếu kịp).
+- Màn thu nhập thể hiện rõ phần tiền đã trừ hoa hồng cho sàn.
+
+### 6. Kết thúc: giải ngân hoặc khiếu nại
+
+- Khách bấm "Xác nhận hoàn thành" (hoặc hệ thống tự xác nhận sau 24 giờ) thì tiền mới được chuyển cho thợ.
+- Nếu không hài lòng, khách mở khiếu nại kèm ảnh. Tiền bị giữ lại cho đến khi admin xử lý: hoàn tiền, cho thợ làm lại, hoặc tặng voucher.
+
+### 7. Chăm sóc khách hàng
+
+- Chat với thợ ngay trong app, không lộ số điện thoại của hai bên (để hai bên không giao dịch riêng ngoài sàn).
+- Chat hỗ trợ: bot trả lời trước (tra đơn, chính sách hủy và hoàn tiền), rồi chuyển cho nhân viên khi chuyện liên quan tiền hoặc bot không giải quyết được.
+- Có nút gọi hotline. Gọi thoại ngay trong app chỉ làm nếu kịp.
+
+### 8. Admin trên web
+
+Các màn điều hành: điều phối (gán tay thợ), đối soát giao dịch và hoàn tiền, hàng đợi hỗ trợ và khiếu nại, quản lý thợ, nhật ký thao tác. Nếu kịp thì thêm bản đồ nhiệt nhu cầu theo khu vực.
+
+### Chủ đề seminar nhóm trình bày được
+
+| Chủ đề                         | Thể hiện ở đâu                                          |
+| ------------------------------ | ------------------------------------------------------- |
+| Load balancer                  | 3 máy chủ sau Nginx, realtime vẫn chạy chéo máy (đã có) |
+| Authentication & Authorization | Token, phân quyền 3 vai trò, vân tay/Face ID            |
+| WebSocket / Realtime           | Theo dõi thợ, chat, thông báo                           |
+| Location-based Services        | Gợi ý theo vị trí, geofence, điều phối theo khoảng cách |
+| QR code                        | Tem thiết bị                                            |
+| Mobile Payment & Fintech       | Cổng giả lập, OTP, giữ tiền rồi giải ngân, hoàn tiền    |
+| ChatBot / AI                   | Agent đặt lịch, MCP, bot hỗ trợ                         |
 
 ## Trạng thái hiện tại
 
 - ✅ **Nền móng xong:** monorepo, shared kernel (cấu hình, log, lỗi chuẩn, audit, outbox + worker), Prisma schema cho toàn bộ MVP, load balancer + 3 replica, CI/CD, ruleset GitHub.
 - ✅ **Module identity xong:** đăng ký, đăng nhập (email / mã KTV), refresh token xoay vòng, đăng xuất tức thì trên mọi replica, khóa tạm, phân quyền, admin khóa/mở khóa người dùng.
 - ✅ **Giao diện:** 11 màn hình chuyển 1:1 từ bản prototype (đã so khớp HTML với bản cũ). Đăng nhập dùng API thật, các màn hình nghiệp vụ dùng **dữ liệu giả** (`frontend/src/mocks`).
-- ⬜ **Tiếp theo:** app Expo, API thật cho từng domain và 4 điểm nhấn ở trên. Kế hoạch và cách làm: [docs/ke-hoach.md](docs/ke-hoach.md).
-
-Chi tiết từng hạng mục và ai phụ trách: [docs/team.md mục 2](docs/team.md#2-checklist-tiến-độ).
+- ⬜ **Tiếp theo:** app Expo, API thật cho từng domain và các tính năng ở trên. Kế hoạch, Jira và cách tránh conflict: [docs/ke-hoach.md](docs/ke-hoach.md).
 
 ## Cấu trúc repo — BE ở đâu, FE ở đâu
 

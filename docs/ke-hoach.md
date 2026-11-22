@@ -18,14 +18,9 @@ Chỉ **đăng nhập/đăng ký** và **Admin › Người dùng** là thật. 
 
 Chi tiết từng màn, luật giá, lỗi tìm được: [specs/current-app.md](specs/current-app.md). Nhật ký thao tác: [testing/](testing/).
 
-## 3. Bốn điểm nhấn
+## 3. Tính năng cần đạt
 
-Sản phẩm hoàn chỉnh trông như thế nào, kể theo hành trình demo: [tinh-nang-noi-bat.md](tinh-nang-noi-bat.md).
-
-1. **AI agent + MCP:** khách chat "đặt vệ sinh máy lạnh sáng thứ 7" → AI tự gọi công cụ của hệ thống để báo giá, xem lịch trống, tạo booking nháp. Cùng bộ công cụ mở ra qua MCP để Claude Desktop dùng được.
-2. **Gợi ý theo ngữ cảnh:** dựa vào vị trí, thời tiết, thiết bị trong nhà, xu hướng khu vực → gợi ý dịch vụ có kèm lý do và gửi push chủ động. Tem **QR dán trên thiết bị** để xem lịch sử và đặt lại 1 chạm.
-3. **Thanh toán kiểu sàn:** cổng giả lập VNPay (nhập thẻ test + OTP), **giữ tiền đến khi khách xác nhận xong việc**, hoàn tiền, hoa hồng cho thợ.
-4. **Realtime + CSKH:** vị trí thợ trên bản đồ, tự báo "đã đến" khi vào gần nhà khách, chat khách–thợ (ẩn số điện thoại), chat hỗ trợ (bot trả lời trước, chuyển nhân viên khi cần), khiếu nại gắn với tiền.
+Danh sách đầy đủ, kể theo hành trình demo, nằm ở [README](../README.md#sản-phẩm-khi-hoàn-thành-cuối-122026--nhóm-bám-theo-phần-này). Cả nhóm bám theo phần đó.
 
 Để sau buổi bảo vệ: RabbitMQ, gọi thoại, multi-agent (chỉ làm nếu còn thời gian).
 
