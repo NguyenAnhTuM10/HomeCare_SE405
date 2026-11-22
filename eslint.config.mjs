@@ -18,6 +18,8 @@ export default tseslint.config(
       '**/node_modules/**',
       'backend/src/generated/**',
       'backend/prisma/migrations/**',
+      'mobile/.expo/**',
+      'mobile/expo-env.d.ts',
     ],
   },
   js.configs.recommended,
@@ -102,6 +104,21 @@ export default tseslint.config(
   {
     files: ['frontend/*.{js,mjs,cjs,ts}'],
     languageOptions: { globals: { ...globals.node } },
+  },
+
+  // ---------- Mobile (Expo) ----------
+  {
+    files: ['mobile/**/*.{ts,tsx}'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
+  // Metro, Babel and Tailwind load these configs with require(), so they stay CommonJS
+  {
+    files: ['mobile/*.js'],
+    rules: { '@typescript-eslint/no-require-imports': 'off' },
   },
 
   // ---------- Config files ----------
