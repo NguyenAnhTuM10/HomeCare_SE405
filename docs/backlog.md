@@ -5,15 +5,15 @@ Bản chính nằm trên Jira: [se405.atlassian.net, project HC](https://se405.a
 - **Mã HC** khớp Jira, xếp theo thứ tự trên bảng: làm từ trên xuống trong đợt của mình.
 - **Người** là gợi ý theo domain, chưa gán. **Điểm** là độ lớn ước lượng.
 
-| Đợt   | Thời gian               |
-| ----- | ----------------------- |
-| HC-13 | 2026-11-23 → 2026-12-06 |
-| HC-14 | 2026-12-07 → 2026-12-20 |
-| HC-15 | 2026-12-21 → 2026-12-27 |
+| Đợt | Thời gian               |
+| --- | ----------------------- |
+| 1   | 2026-11-23 → 2026-12-06 |
+| 2   | 2026-12-07 → 2026-12-20 |
+| 3   | 2026-12-21 → 2026-12-27 |
 
 ## Đợt 1
 
-| #     | Việc                                                                                 | Epic                                    | Người | Điểm | Làm sau                    |
+| Mã    | Việc                                                                                 | Epic                                    | Người | Điểm | Làm sau                    |
 | ----- | ------------------------------------------------------------------------------------ | --------------------------------------- | ----- | ---- | -------------------------- |
 | HC-13 | ADR-0008: app Expo cho khách và KTV, web cho admin, phạm vi mở rộng                  | Nền tảng & phát hành                    | Nhóm  | 2    |                            |
 | HC-14 | Cho điện thoại gọi được API khi dev (tunnel)                                         | Nền tảng & phát hành                    | Nhóm  | 3    |                            |
@@ -45,7 +45,7 @@ Bản chính nằm trên Jira: [se405.atlassian.net, project HC](https://se405.a
 
 ## Đợt 2
 
-| #     | Việc                                                                                           | Epic                                    | Người | Điểm | Làm sau      |
+| Mã    | Việc                                                                                           | Epic                                    | Người | Điểm | Làm sau      |
 | ----- | ---------------------------------------------------------------------------------------------- | --------------------------------------- | ----- | ---- | ------------ |
 | HC-40 | Server staging có tên miền + HTTPS, nạp secret, bật CD                                         | Nền tảng & phát hành                    | Nhóm  | 5    |              |
 | HC-41 | Seed lịch sử đặt lịch giả khắp TP.HCM                                                          | Điều phối & gợi ý theo ngữ cảnh         | TV2   | 2    |              |
@@ -75,7 +75,7 @@ Bản chính nằm trên Jira: [se405.atlassian.net, project HC](https://se405.a
 
 ## Đợt 3
 
-| #     | Việc                                                                        | Epic                            | Người | Điểm | Làm sau                    |
+| Mã    | Việc                                                                        | Epic                            | Người | Điểm | Làm sau                    |
 | ----- | --------------------------------------------------------------------------- | ------------------------------- | ----- | ---- | -------------------------- |
 | HC-65 | Kịch bản demo + video dự phòng                                              | Kiểm thử, demo & báo cáo        | Nhóm  | 2    |                            |
 | HC-66 | Báo cáo đồ án + slide bảo vệ                                                | Kiểm thử, demo & báo cáo        | Nhóm  | 8    |                            |
