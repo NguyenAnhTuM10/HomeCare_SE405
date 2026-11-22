@@ -1,12 +1,13 @@
 # HomeCare — nền tảng dịch vụ chăm sóc nhà
 
-Đồ án SE405 — nhóm 4 người. Khách hàng đặt dịch vụ vệ sinh/sửa chữa/bảo trì, thanh toán qua cổng mô phỏng VNPay và theo dõi kỹ thuật viên **theo thời gian thực**; kỹ thuật viên nhận và làm việc trên màn hình riêng (bản web hiện có, app Expo dự kiến); quản trị viên điều hành qua web console.
+Đồ án SE405 — nhóm 4 người. **Sàn dịch vụ tại nhà** (vệ sinh, sửa chữa, bảo trì thiết bị): khách và kỹ thuật viên dùng chung một **app Expo**, HomeCare đứng giữa để giữ tiền, điều phối và giải quyết khiếu nại; quản trị viên điều hành qua web console.
 
 **Kiến trúc:** NestJS modular monolith · PostgreSQL + Prisma · Redis · Nginx load balancer (nhiều replica) · React 19 + Vite (giao diện 1:1 bản prototype) · Expo _(dự kiến)_ · Docker · GitHub Actions CI/CD · Prometheus/Grafana.
 
 | Tài liệu                                                                 | Nội dung                                                                                    |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
 | [docs/ke-hoach.md](docs/ke-hoach.md)                                     | **Đọc trước:** kế hoạch đến buổi bảo vệ, cách làm trên Jira, cách tránh conflict            |
+| [docs/tinh-nang-noi-bat.md](docs/tinh-nang-noi-bat.md)                   | Tính năng nổi bật khi hoàn thành, theo hành trình demo                                      |
 | [docs/specs/current-app.md](docs/specs/current-app.md)                   | App đang làm gì thật (kiểm thử 22/11), lỗi tìm được, tính năng đã có / sẽ làm               |
 | [docs/team.md](docs/team.md)                                             | Phân công, **checklist đã làm / chưa làm / hướng phát triển**, lộ trình, quy trình làm việc |
 | [docs/architecture/system-design.md](docs/architecture/system-design.md) | Thiết kế hệ thống: C4, ERD, luồng chính, chống bypass, load balancing, CI/CD                |
@@ -15,12 +16,22 @@
 | [docs/adr](docs/adr)                                                     | Các quyết định kiến trúc (ADR 0001–0007)                                                    |
 | [CLAUDE.md](CLAUDE.md)                                                   | Quy tắc bắt buộc cho cả nhóm (và cho Claude Code)                                           |
 
+## Sản phẩm khi hoàn thành (cuối 12/2026)
+
+- **Gợi ý theo ngữ cảnh:** app gợi ý dịch vụ kèm lý do (vị trí, thời tiết, thiết bị trong nhà, xu hướng khu vực) và gửi push chủ động; tem QR trên thiết bị để xem lịch sử và đặt lại một chạm.
+- **Đặt lịch bằng chat với AI:** AI tự báo giá, xem lịch trống, tạo lịch chờ khách xác nhận; cùng bộ công cụ mở qua MCP.
+- **Thanh toán kiểu sàn:** cổng giả lập VNPay (thẻ test + OTP), HomeCare giữ tiền đến khi khách xác nhận xong việc, hoàn tiền, hoa hồng cho thợ.
+- **Realtime:** vị trí thợ trên bản đồ, ETA, tự báo "đã đến"; chạy được qua nhiều máy chủ sau load balancer.
+- **Chăm sóc khách hàng:** chat khách–thợ không lộ số điện thoại, bot hỗ trợ chuyển nhân viên khi cần, khiếu nại gắn với tiền.
+
+Chi tiết: [docs/tinh-nang-noi-bat.md](docs/tinh-nang-noi-bat.md).
+
 ## Trạng thái hiện tại
 
 - ✅ **Nền móng xong:** monorepo, shared kernel (cấu hình, log, lỗi chuẩn, audit, outbox + worker), Prisma schema cho toàn bộ MVP, load balancer + 3 replica, CI/CD, ruleset GitHub.
 - ✅ **Module identity xong:** đăng ký, đăng nhập (email / mã KTV), refresh token xoay vòng, đăng xuất tức thì trên mọi replica, khóa tạm, phân quyền, admin khóa/mở khóa người dùng.
 - ✅ **Giao diện:** 11 màn hình chuyển 1:1 từ bản prototype (đã so khớp HTML với bản cũ). Đăng nhập dùng API thật, các màn hình nghiệp vụ dùng **dữ liệu giả** (`frontend/src/mocks`).
-- ⬜ **Tiếp theo:** mỗi người làm API thật cho domain của mình (catalog/booking, payments + sandbox, tracking realtime, profile…) rồi thay dần mock.
+- ⬜ **Tiếp theo:** app Expo, API thật cho từng domain và 4 điểm nhấn ở trên. Kế hoạch và cách làm: [docs/ke-hoach.md](docs/ke-hoach.md).
 
 Chi tiết từng hạng mục và ai phụ trách: [docs/team.md mục 2](docs/team.md#2-checklist-tiến-độ).
 

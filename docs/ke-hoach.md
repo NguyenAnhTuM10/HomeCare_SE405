@@ -20,6 +20,8 @@ Chi tiết từng màn, luật giá, lỗi tìm được: [specs/current-app.md]
 
 ## 3. Bốn điểm nhấn
 
+Sản phẩm hoàn chỉnh trông như thế nào, kể theo hành trình demo: [tinh-nang-noi-bat.md](tinh-nang-noi-bat.md).
+
 1. **AI agent + MCP:** khách chat "đặt vệ sinh máy lạnh sáng thứ 7" → AI tự gọi công cụ của hệ thống để báo giá, xem lịch trống, tạo booking nháp. Cùng bộ công cụ mở ra qua MCP để Claude Desktop dùng được.
 2. **Gợi ý theo ngữ cảnh:** dựa vào vị trí, thời tiết, thiết bị trong nhà, xu hướng khu vực → gợi ý dịch vụ có kèm lý do và gửi push chủ động. Tem **QR dán trên thiết bị** để xem lịch sử và đặt lại 1 chạm.
 3. **Thanh toán kiểu sàn:** cổng giả lập VNPay (nhập thẻ test + OTP), **giữ tiền đến khi khách xác nhận xong việc**, hoàn tiền, hoa hồng cho thợ.
