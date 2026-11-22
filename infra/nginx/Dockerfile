@@ -13,7 +13,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile --filter "@homecare/frontend..."
 RUN pnpm --filter @homecare/frontend exec vite build
 
-FROM nginx:1.28-alpine
+FROM nginx:1.29-alpine
 COPY infra/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=web /repo/frontend/dist /usr/share/nginx/html
 EXPOSE 80
