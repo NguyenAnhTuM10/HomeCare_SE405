@@ -101,11 +101,14 @@ Bản chính nằm trên Jira: [se405.atlassian.net, project HC](https://se405.a
 
 ## Việc mới, chưa có trên Jira
 
-| Việc                                           | Đợt | Gói  | Điểm |
-| ---------------------------------------------- | --- | ---- | ---- |
-| [Nếu kịp] Chatbot: nhập bằng giọng nói         | 2   | Lead | 2    |
-| App thợ: màn thu nhập (đã trừ hoa hồng)        | 3   | Lead | 3    |
-| Push cho thợ có nút Nhận/Từ chối               | 2   | B    | 2    |
-| Trang chủ app khách + API tổng quan /dashboard | 2   | C    | 5    |
-| App: đăng ký tài khoản khách                   | 1   | C    | 2    |
-| App khách: chat hỗ trợ và mở khiếu nại         | 2   | C    | 3    |
+Mã M1–M7 giống trong [phan-cong.md](phan-cong.md) mục 6.
+
+| Mã  | Việc                                                            | Đợt | Gói  | Điểm |
+| --- | --------------------------------------------------------------- | --- | ---- | ---- |
+| M1  | Bot hỗ trợ: tra đơn, chính sách hủy/hoàn tiền, chuyển nhân viên | 2   | Lead | 3    |
+| M2  | App thợ: màn thu nhập (đã trừ hoa hồng)                         | 3   | Lead | 3    |
+| M3  | [Nếu kịp] Chatbot: nhập bằng giọng nói                          | 2   | Lead | 2    |
+| M4  | Push cho thợ có nút Nhận/Từ chối                                | 2   | B    | 2    |
+| M5  | Trang chủ app khách + API tổng quan                             | 2   | C    | 5    |
+| M6  | App: đăng ký tài khoản khách                                    | 1   | C    | 2    |
+| M7  | App khách: chat hỗ trợ và mở khiếu nại                          | 2   | C    | 3    |
