@@ -5,16 +5,11 @@
 > Cập nhật: 2026-11-15.
 > Mỗi người sở hữu **một domain end-to-end**: schema Prisma, module API, nối dữ liệu cho màn hình, test và tài liệu của domain đó.
 > Shared kernel (`backend/src/common`, `packages/shared`, `infra`, `.github`) thuộc **cả nhóm**: mọi PR chạm vào đây cần ≥ 2 người review.
-> **Giao diện = bản prototype, giống y hệt** (yêu cầu của khách hàng): không ai sửa giao diện các màn hình đã có, xem [frontend-migration.md](frontend-migration.md).
+> **Giao diện = bản prototype** (yêu cầu của khách hàng): app giống ≥ 90%; các màn web cũ của khách/thợ đóng băng, không sửa. Xem [frontend-migration.md](frontend-migration.md).
 
 ## 1. Phân công
 
-| Thành viên | Domain                                                                                  | Thư mục chính                                                                                              | Màn hình (nối dữ liệu)                         |
-| ---------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| **TV1**    | Identity _(đã xong, làm mẫu)_, Profile, Địa chỉ, Thiết bị & Nhắc bảo trì, Admin console | `modules/identity`, `modules/profile`, `schema/identity.prisma`, `schema/profile.prisma`                   | Tổng quan, Hồ sơ, Thiết bị, Admin › Người dùng |
-| **TV2**    | Catalog, Booking (state machine), Dispatch (điều phối)                                  | `modules/catalog`, `modules/booking`, `modules/dispatch`, `schema/catalog.prisma`, `schema/booking.prisma` | Vệ sinh, Sửa chữa, Đặt lịch, Admin › Điều phối |
-| **TV3**    | Payments, payment-sandbox (VNPay giả lập), hoàn tiền, biên nhận                         | `modules/payments`, `payment-sandbox/`, `schema/payments.prisma`                                           | Thanh toán, Admin › Đối soát                   |
-| **TV4**    | Kỹ thuật viên (web hiện có; app Expo nếu nhóm chốt), Tracking realtime, Notifications   | `modules/technician`, `modules/tracking`, `modules/notifications`, `schema/technician.prisma`, `mobile/`   | Kỹ thuật viên, Theo dõi, Admin › Bản đồ        |
+Chia theo gói, mỗi người làm trọn một gói từ backend đến màn hình: **[phan-cong.md](phan-cong.md)**.
 
 Người phụ trách review theo đường dẫn: điền GitHub username vào `.github/CODEOWNERS` (hiện còn để trống).
 

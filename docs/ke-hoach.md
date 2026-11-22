@@ -4,11 +4,11 @@
 
 ## 1. Đổi hướng gì
 
-| Trước                          | Bây giờ                                                                                                   |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| Web cho khách, màn web cho thợ | **App Expo** cho khách và thợ (một app, 2 vai trò). **Admin vẫn là web**. Web khách giữ làm kênh dự phòng |
-| App đặt dịch vụ                | **Sàn hai phía**: khách ↔ thợ, HomeCare giữ tiền, điều phối, giải quyết khiếu nại                         |
-| Chủ yếu CRUD                   | Thêm 4 điểm nhấn để chấm điểm (mục 3)                                                                     |
+| Trước                          | Bây giờ                                                                                                                       |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| Web cho khách, màn web cho thợ | **App Expo** cho khách và thợ (một app, 2 vai trò). **Web chỉ còn cho admin**; màn web khách/thợ đóng băng làm bản tham chiếu |
+| App đặt dịch vụ                | **Sàn hai phía**: khách ↔ thợ, HomeCare giữ tiền, điều phối, giải quyết khiếu nại                                             |
+| Chủ yếu CRUD                   | Thêm 4 điểm nhấn để chấm điểm (mục 3)                                                                                         |
 
 App giống **≥ 90% prototype**: giữ màu, font, icon, câu chữ; được đổi bố cục cho điện thoại (thanh tab dưới, một cột). Android là máy demo chính (không có Mac nên iPhone chỉ chạy Expo Go).
 
@@ -26,36 +26,31 @@ Danh sách đầy đủ, kể theo hành trình demo, nằm ở [README](../READ
 
 ## 4. Làm việc trên Jira
 
-- Project **HomeCare (HC)**, bảng Kanban. 12 epic theo domain, 73 việc.
-- **Nhãn `dot-1`, `dot-2`, `dot-3`** là đợt: 23/11–06/12, 07/12–20/12, 21/12–27/12. Nhãn `tv1`…`tv4`, `team` là người **gợi ý** theo domain; chưa ai được gán.
+- Project **HomeCare (HC)**, bảng Kanban. 12 epic theo domain.
+- **Nhãn `dot-1`, `dot-2`, `dot-3`** là đợt: 23/11–06/12, 07/12–20/12, 21/12–27/12. Nhãn gói `lead`, `goi-a`, `goi-b`, `goi-c`, `team` cho biết việc thuộc gói nào.
 - **Thứ tự trên bảng đã sắp sẵn:** việc nền ở trên, việc phụ thuộc ở dưới. Lấy việc từ trên xuống trong đợt của mình. Mỗi ticket ghi **"Làm sau"** (phải đợi việc nào) và **"Vùng code"** (sẽ sửa thư mục nào).
 - Việc có chữ **[Nếu kịp]** chỉ làm khi xong hết phần còn lại.
 - Mỗi người tối đa **2 việc "In Progress"** cùng lúc.
 - Tên nhánh và commit có key Jira: nhánh `feat/HC-23-booking-api`, commit `feat(booking): create booking (HC-23)`.
 
-| Người | Domain                                       |
-| ----- | -------------------------------------------- |
-| TV1   | Tài khoản, hồ sơ, thiết bị + QR, AI agent    |
-| TV2   | Catalog, báo giá, booking, điều phối, gợi ý  |
-| TV3   | Thanh toán, sandbox, CSKH và khiếu nại       |
-| TV4   | Khung app Expo, realtime, app thợ, thông báo |
+Phân công theo gói (lead giữ Thanh toán & AI, ba người còn lại vote gói A, B, C): **[phan-cong.md](phan-cong.md)**.
 
 ## 5. Tránh conflict
 
 1. **Mỗi người sửa trong thư mục của mình**: `backend/src/modules/<module>/`, `backend/prisma/schema/<module>.prisma`, `mobile/app/(customer)/<màn>/`, `frontend/src/pages/admin/<màn>`.
-2. **Ba việc nền phải xong trước** vì nhiều người dựa vào: khung app Expo (TV4), state machine booking (TV2), Socket.IO gateway (TV4). Người làm việc nền merge sớm, các người khác rebase rồi mới làm tiếp.
+2. **Ba việc nền phải xong trước** vì nhiều người dựa vào: khung app Expo (HC-15), state machine booking (HC-18), Socket.IO gateway (HC-24). Người làm việc nền merge sớm, các người khác rebase rồi mới làm tiếp.
 3. **File dùng chung** — chỉ thêm dòng, PR nhỏ, merge trong ngày:
    - `backend/src/app.module.ts` (thêm module của mình)
    - `packages/shared/src/` (schema, tên sự kiện socket)
    - khung điều hướng của `mobile/`
-   - `frontend/src/mocks/legacy-server.js` (chỉ xóa route mock của mình khi API thật đã chạy)
 4. **Migration:** mỗi PR một migration riêng; trước khi merge thì rebase `dev` và chạy lại `pnpm db:migrate`; không sửa migration đã merge.
 5. Mở PR sớm (draft) để người khác thấy mình đang đụng file nào.
 
 ## 6. Việc đầu tiên của tuần này
 
 - **Cả nhóm:** đọc file này và [specs/current-app.md](specs/current-app.md); gắn tag `v0.1.0`; điền CODEOWNERS; dựng tunnel để điện thoại gọi được API.
-- **TV1:** sửa lỗi khóa tạm đăng nhập (ai cũng khóa được tài khoản người khác 15 phút), rồi API hồ sơ và địa chỉ.
-- **TV2:** state machine booking, rồi báo giá phía server (gộp 4 công thức giá đang lệch nhau thành một).
-- **TV3:** payment-sandbox.
-- **TV4:** khung app Expo, rồi Socket.IO gateway.
+- **Vote gói** theo [phan-cong.md](phan-cong.md), rồi chốt các điểm nối giữa các gói (mục 4 của file đó).
+- **Lead:** khung app Expo (HC-15), rồi payment-sandbox.
+- **Gói A:** state machine booking, rồi báo giá phía server (gộp 4 công thức giá đang lệch nhau thành một).
+- **Gói B:** Socket.IO gateway, rồi API kỹ thuật viên.
+- **Gói C:** sửa lỗi khóa tạm đăng nhập (ai cũng khóa được tài khoản người khác 15 phút), rồi API hồ sơ và địa chỉ.
