@@ -2,7 +2,7 @@
 
 > Cập nhật 2026-11-22. Kết quả 3 lượt dùng thử app trên máy local, mỗi lượt một vai trò, có thao tác ghi (đặt lịch, thanh toán, đổi trạng thái, khóa tài khoản).
 > Báo cáo chi tiết từng bước: [khách hàng](../testing/2026-11-22-khach-hang.md) · [kỹ thuật viên](../testing/2026-11-22-ky-thuat-vien.md) · [quản trị](../testing/2026-11-22-quan-tri.md).
-> Hướng sản phẩm đã chốt: **sàn dịch vụ hai phía** (khách ↔ kỹ thuật viên, HomeCare là bên trung gian), **app Expo** cho khách và kỹ thuật viên (giống ≥ 90% prototype về màu, font, icon, chữ; bố cục theo điện thoại), **web** cho quản trị (web khách giữ làm kênh dự phòng). Hạn bảo vệ: cuối tháng 12/2026.
+> Hướng sản phẩm đã chốt: **sàn dịch vụ hai phía** (khách ↔ kỹ thuật viên, HomeCare là bên trung gian), **app Expo** cho khách và kỹ thuật viên (giống ≥ 90% prototype về màu, font, icon, chữ; bố cục theo điện thoại), **web** chỉ cho quản trị (màn web khách/thợ đóng băng làm bản tham chiếu). Hạn bảo vệ: cuối tháng 12/2026.
 
 ## 1. Hiện trạng kỹ thuật trong một câu
 
