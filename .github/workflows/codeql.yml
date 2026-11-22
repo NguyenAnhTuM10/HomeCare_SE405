@@ -1,12 +1,11 @@
 name: CodeQL
 
+# Paused: the repository is private and code scanning on private repos needs GitHub Code Security,
+# so results cannot be uploaded and every run fails. Runs only on demand for now.
+# To re-enable (public repo or Code Security turned on), restore these triggers:
+#   pull_request/push on [main, dev] and schedule cron '0 3 * * 1'.
 on:
-  pull_request:
-    branches: [main, dev]
-  push:
-    branches: [main, dev]
-  schedule:
-    - cron: '0 3 * * 1'
+  workflow_dispatch:
 
 permissions:
   contents: read
