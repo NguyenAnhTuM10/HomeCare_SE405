@@ -1,7 +1,7 @@
 # HomeCare — guide for Claude Code (shared by the whole team)
 
 On-demand home services platform (cleaning, repair, appliance care). SE405 capstone, 4 developers.
-Customers and technicians use the Expo mobile app (the customer web app stays as a fallback), admins the web operations console.
+Customers and technicians use the Expo mobile app, admins the web operations console.
 
 ## Stack & layout
 
