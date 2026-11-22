@@ -1,7 +1,7 @@
 # HomeCare — guide for Claude Code (shared by the whole team)
 
 On-demand home services platform (cleaning, repair, appliance care). SE405 capstone, 4 developers.
-Customers use the web app, technicians the Expo mobile app, admins the web operations console.
+Customers and technicians use the Expo mobile app (the customer web app stays as a fallback), admins the web operations console.
 
 ## Stack & layout
 
@@ -12,7 +12,7 @@ pnpm monorepo (Node ≥ 22, pnpm 10 via corepack):
 | `backend`                        | NestJS 11 modular monolith. Roles: `api` (HTTP/WS, behind Nginx) and `worker` (outbox relay, jobs) — same image                                                                                 |
 | `backend/prisma/schema/*.prisma` | Prisma 7 schema, **one file per module** (owner in header)                                                                                                                                      |
 | `frontend`                       | React 19 + Vite + Tailwind **3.4.19** + lucide-react **1.71.0** (both pinned to the prototype's versions) + TanStack Query + react-router 7. Mock API for business data in `frontend/src/mocks` |
-| `mobile`                         | Expo app (to be created by TV4)                                                                                                                                                                 |
+| `mobile`                         | Expo SDK 58 app for customers + technicians: Expo Router (`src/app`), NativeWind 4.2.7 on Tailwind 3.4.19 (same classes as the prototype), lucide-react-native 1.71.0. See `mobile/README.md`   |
 | `payment-sandbox`                | Mock VNPay gateway (to be created by TV3, see ADR-0003)                                                                                                                                         |
 | `packages/shared`                | zod schemas, enums, error codes, socket events — the contract between server and clients                                                                                                        |
 | `infra/`                         | docker compose (dev deps; full LB stack), Nginx, Prometheus/Grafana                                                                                                                             |

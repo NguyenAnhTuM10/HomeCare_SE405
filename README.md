@@ -118,7 +118,7 @@ HomeCare_SE405/
 └─ .claude/             ← cấu hình Claude Code cho nhóm, không phải code của app
 ```
 
-Sẽ thêm: `payment-sandbox/` (cổng VNPay giả lập, TV3) và `mobile/` (app Expo nếu nhóm chốt, TV4).
+`mobile/` là app Expo cho khách và kỹ thuật viên (hướng dẫn chạy: [mobile/README.md](mobile/README.md)). Sẽ thêm: `payment-sandbox/` (cổng VNPay giả lập, TV3).
 
 **Đọc code từ đâu?** Đi theo luồng đăng nhập, đúng thứ tự một request chạy qua:
 
