@@ -77,14 +77,8 @@ Mock giữ nguyên hành vi bản cũ để giao diện chạy y hệt. Nhưng *
 4. **Vị trí kỹ thuật viên qua Socket.IO** thay vì `POST /technician/location` mỗi 5 giây; server kiểm tra KTV có đang được gán booking đó ([ADR-0005](adr/0005-load-balancing-realtime.md)).
 5. **Không bao giờ tự đọc/ghi token**; mọi lời gọi qua `apiFetch()` / `api()`.
 
-## 8. Màn hình kỹ thuật viên: web hay app Expo? (cần nhóm quyết định)
+## 8. App Expo (đã chốt 22/11/2026)
 
-Bản web cũ đã chạy ở `/technician`, giống y hệt bản prototype.
+Khách và kỹ thuật viên dùng **app Expo** (`mobile/`); admin dùng web. Web khách giữ làm kênh dự phòng, màn `/technician` trên web sẽ được thay bằng app.
 
-|                       | Giữ bản web (`TechnicianPage.jsx`)      | Làm app Expo (`mobile/`)              |
-| --------------------- | --------------------------------------- | ------------------------------------- |
-| Công sức              | Không thêm                              | Nhiều: viết lại giao diện cho di động |
-| GPS                   | Chỉ chạy khi đang mở trang              | Chạy nền cả khi tắt màn hình          |
-| Camera, thông báo đẩy | Chụp ảnh qua trình duyệt, không có push | Đầy đủ                                |
-
-Gợi ý: dùng bản web cho MVP; nếu làm Expo thì giao diện cũng phải theo đúng bản web hiện có.
+App giống **≥ 90% prototype**: giữ màu, font, icon, câu chữ, kiểu card và nút; được đổi bố cục cho điện thoại (thanh tab dưới, một cột, date picker và bottom sheet của điện thoại). Mỗi PR màn hình app kèm ảnh đặt cạnh màn prototype.
