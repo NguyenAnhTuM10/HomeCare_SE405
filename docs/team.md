@@ -1,5 +1,7 @@
 # Phân công, tiến độ & lộ trình — nhóm 4 người
 
+> **22/11/2026: kế hoạch mới (app Expo, sàn hai phía, 4 điểm nhấn) và việc trên Jira ở [ke-hoach.md](ke-hoach.md).** Lộ trình §3 bên dưới đã cũ; checklist §2 và quy trình §4 vẫn dùng.
+>
 > Cập nhật: 2026-11-15.
 > Mỗi người sở hữu **một domain end-to-end**: schema Prisma, module API, nối dữ liệu cho màn hình, test và tài liệu của domain đó.
 > Shared kernel (`backend/src/common`, `packages/shared`, `infra`, `.github`) thuộc **cả nhóm**: mọi PR chạm vào đây cần ≥ 2 người review.

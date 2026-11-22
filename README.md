@@ -6,6 +6,8 @@
 
 | Tài liệu                                                                 | Nội dung                                                                                    |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| [docs/ke-hoach.md](docs/ke-hoach.md)                                     | **Đọc trước:** kế hoạch đến buổi bảo vệ, cách làm trên Jira, cách tránh conflict            |
+| [docs/specs/current-app.md](docs/specs/current-app.md)                   | App đang làm gì thật (kiểm thử 22/11), lỗi tìm được, tính năng đã có / sẽ làm               |
 | [docs/team.md](docs/team.md)                                             | Phân công, **checklist đã làm / chưa làm / hướng phát triển**, lộ trình, quy trình làm việc |
 | [docs/architecture/system-design.md](docs/architecture/system-design.md) | Thiết kế hệ thống: C4, ERD, luồng chính, chống bypass, load balancing, CI/CD                |
 | [docs/frontend-migration.md](docs/frontend-migration.md)                 | Quy tắc giao diện giống y hệt bản cũ, mock API, cách nối API thật                           |
