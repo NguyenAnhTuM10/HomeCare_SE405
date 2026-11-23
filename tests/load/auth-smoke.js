@@ -21,7 +21,10 @@ export const options = {
 export function setup() {
   const res = http.post(
     `${BASE}/api/v1/auth/login`,
-    JSON.stringify({ identifier: 'khang.nguyen@example.com', password: 'Homecare@123' }),
+    JSON.stringify({
+      identifier: __ENV.LOGIN_EMAIL || 'khang.nguyen@example.com',
+      password: __ENV.LOGIN_PASSWORD || 'Homecare@123', // dev seed default, see .env.example
+    }),
     { headers: { 'Content-Type': 'application/json', 'x-client-type': 'mobile' } },
   );
   check(res, { 'login 200': (r) => r.status === 200 });

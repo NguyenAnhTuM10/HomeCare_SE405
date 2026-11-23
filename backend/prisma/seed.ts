@@ -1,23 +1,38 @@
 /**
- * Development seed — ported from legacy/backend/src/store.js.
+ * Development / staging seed — ported from legacy/backend/src/store.js.
  * Idempotent: safe to run repeatedly (`pnpm db:seed`). NEVER run against production.
  *
- * Test accounts (password for all: Homecare@123)
- *   admin@homecare.test        ADMIN
- *   khang.nguyen@example.com   CUSTOMER
- *   linh.tran@example.com      CUSTOMER
+ * Test accounts come from backend/.env (see .env.example):
+ *   SEED_PASSWORD          password for every seed account (required)
+ *   SEED_ADMIN_EMAIL       ADMIN      (default admin@homecare.test)
+ *   SEED_CUSTOMER_EMAIL    CUSTOMER   (default khang.nguyen@example.com)
+ *   SEED_CUSTOMER_2_EMAIL  CUSTOMER   (default linh.tran@example.com)
  *   TECH-088, TECH-018, TECH-027, TECH-041   TECHNICIAN (log in with the code)
+ * Re-running the seed resets these accounts' name, phone and password.
+ * All personal data here is fictional (0900 000 xxx phones, reserved domains).
  */
 import 'dotenv/config';
 import { PrismaPg } from '@prisma/adapter-pg';
 import * as argon2 from 'argon2';
 import { PrismaClient, ServiceDomain } from '../src/generated/prisma/client';
 
-const SEED_PASSWORD = 'Homecare@123';
-
 if (process.env.NODE_ENV === 'production') {
   throw new Error('Refusing to seed a production database');
 }
+
+const SEED_PASSWORD = process.env.SEED_PASSWORD ?? '';
+if (SEED_PASSWORD.length < 8 || !/[A-Za-z]/.test(SEED_PASSWORD) || !/\d/.test(SEED_PASSWORD)) {
+  throw new Error(
+    'SEED_PASSWORD must be set in backend/.env (min 8 chars, letters and digits). See .env.example.',
+  );
+}
+
+const seedEmail = (name: string, fallback: string) =>
+  (process.env[name] || fallback).trim().toLowerCase();
+
+const ADMIN_EMAIL = seedEmail('SEED_ADMIN_EMAIL', 'admin@homecare.test');
+const CUSTOMER_EMAIL = seedEmail('SEED_CUSTOMER_EMAIL', 'khang.nguyen@example.com');
+const CUSTOMER_2_EMAIL = seedEmail('SEED_CUSTOMER_2_EMAIL', 'linh.tran@example.com');
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }),
@@ -151,7 +166,7 @@ const technicians: Array<{
     code: 'TECH-088',
     fullName: 'Phạm Quốc Việt',
     email: 'viet.technician@homecare.test',
-    phone: '0908234567',
+    phone: '0900000201',
     skills: ['CLEANING', 'REPAIR', 'APPLIANCE'],
     serviceAreas: ['Quận 4', 'Quận 7', 'TP Thủ Đức'],
     experienceYears: 5,
@@ -162,7 +177,7 @@ const technicians: Array<{
     code: 'TECH-018',
     fullName: 'Trần Minh Khôi',
     email: 'khoi.technician@homecare.test',
-    phone: '0908111222',
+    phone: '0900000202',
     skills: ['CLEANING', 'APPLIANCE'],
     serviceAreas: ['Quận 7', 'Nhà Bè'],
     experienceYears: 3,
@@ -173,7 +188,7 @@ const technicians: Array<{
     code: 'TECH-027',
     fullName: 'Lê Hoàng An',
     email: 'an.technician@homecare.test',
-    phone: '0908333444',
+    phone: '0900000203',
     skills: ['REPAIR'],
     serviceAreas: ['Quận 1', 'Quận 3', 'Quận 10'],
     experienceYears: 4,
@@ -184,7 +199,7 @@ const technicians: Array<{
     code: 'TECH-041',
     fullName: 'Phạm Gia Hân',
     email: 'han.technician@homecare.test',
-    phone: '0908555666',
+    phone: '0900000204',
     skills: ['APPLIANCE', 'REPAIR'],
     serviceAreas: ['Quận 3', 'Phú Nhuận'],
     experienceYears: 2,
@@ -197,43 +212,30 @@ async function main(): Promise<void> {
   const passwordHash = await argon2.hash(SEED_PASSWORD, { type: argon2.argon2id });
 
   // ---- identity ----
+  const admin = { phone: '0900000001', fullName: 'HomeCare Admin', passwordHash };
   await prisma.user.upsert({
-    where: { email: 'admin@homecare.test' },
-    update: {},
-    create: {
-      email: 'admin@homecare.test',
-      phone: '0900000001',
-      fullName: 'HomeCare Admin',
-      role: 'ADMIN',
-      passwordHash,
-    },
+    where: { email: ADMIN_EMAIL },
+    update: admin,
+    create: { ...admin, email: ADMIN_EMAIL, role: 'ADMIN' },
   });
 
+  const khangData = { phone: '0900000101', fullName: 'Nguyễn Minh Khang', passwordHash };
   const khang = await prisma.user.upsert({
-    where: { email: 'khang.nguyen@example.com' },
-    update: {},
-    create: {
-      email: 'khang.nguyen@example.com',
-      phone: '0908245688',
-      fullName: 'Nguyễn Minh Khang',
-      passwordHash,
-    },
+    where: { email: CUSTOMER_EMAIL },
+    update: khangData,
+    create: { ...khangData, email: CUSTOMER_EMAIL },
   });
+  const linhData = { phone: '0900000102', fullName: 'Trần Hà Linh', passwordHash };
   const linh = await prisma.user.upsert({
-    where: { email: 'linh.tran@example.com' },
-    update: {},
-    create: {
-      email: 'linh.tran@example.com',
-      phone: '0912334556',
-      fullName: 'Trần Hà Linh',
-      passwordHash,
-    },
+    where: { email: CUSTOMER_2_EMAIL },
+    update: linhData,
+    create: { ...linhData, email: CUSTOMER_2_EMAIL },
   });
 
   for (const t of technicians) {
     const user = await prisma.user.upsert({
       where: { technicianCode: t.code },
-      update: {},
+      update: { email: t.email, phone: t.phone, fullName: t.fullName, passwordHash },
       create: {
         email: t.email,
         phone: t.phone,
@@ -392,7 +394,10 @@ async function main(): Promise<void> {
     ],
   });
 
-  console.warn(`Seed complete. Test password for every account: ${SEED_PASSWORD}`);
+  console.warn(
+    `Seed complete. Accounts: ${ADMIN_EMAIL}, ${CUSTOMER_EMAIL}, ${CUSTOMER_2_EMAIL}, ` +
+      `${technicians.map((t) => t.code).join(', ')} (password: SEED_PASSWORD in backend/.env)`,
+  );
 }
 
 main()

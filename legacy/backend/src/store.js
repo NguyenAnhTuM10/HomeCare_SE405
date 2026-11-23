@@ -36,14 +36,14 @@ const initialData = {
     {
       id: "profile-default",
       name: "Nguyễn Minh Khang",
-      phone: "0908 245 688",
+      phone: "0900 000 101",
       email: "khang.nguyen@example.com",
       updatedAt: new Date().toISOString()
     },
     {
       id: "USR-SAMPLE-001",
       name: "Nguyễn Minh Khang",
-      phone: "0908 245 688",
+      phone: "0900 000 101",
       email: "khang.nguyen@example.com",
       address: "12 Nguyễn Văn Linh, Quận 7, TP.HCM",
       updatedAt: new Date().toISOString()
@@ -51,7 +51,7 @@ const initialData = {
     {
       id: "USR-SAMPLE-002",
       name: "Trần Hà Linh",
-      phone: "0912 334 556",
+      phone: "0900 000 102",
       email: "linh.tran@example.com",
       address: "45 Lê Văn Sỹ, Quận 3, TP.HCM",
       updatedAt: new Date().toISOString()
@@ -155,9 +155,9 @@ const initialData = {
       id: "wallet",
       userId: "USR-SAMPLE-001",
       name: "Ví điện tử",
-      detail: "MoMo - 0909 123 456",
+      detail: "MoMo - 0900 000 999",
       accountLabel: "MoMo",
-      accountValue: "0909 123 456",
+      accountValue: "0900 000 999",
       provider: "MoMo",
       referencePrefix: "WALLET",
       fee: 2500,
@@ -167,9 +167,9 @@ const initialData = {
       id: "bank",
       userId: "USR-SAMPLE-001",
       name: "Chuyển khoản ngân hàng",
-      detail: "Vietcombank - 1028 884 688",
+      detail: "Vietcombank - 0000 000 001",
       accountLabel: "VCB - Nguyễn Minh Khang",
-      accountValue: "1028 884 688",
+      accountValue: "0000 000 001",
       provider: "Vietcombank",
       referencePrefix: "BANK",
       fee: 0,

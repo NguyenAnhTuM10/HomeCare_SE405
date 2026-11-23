@@ -81,11 +81,11 @@ Ghi chú về ảnh: built-in browser không có công cụ chọn file, nên �
 
 1. **Không có state machine**: nhảy cóc / lùi / mở lại job đã từ chối đều được; "Hoàn thành" không cần báo cáo ảnh.
 2. **Báo cáo trùng**: một job nhận nhiều báo cáo; báo cáo được cho job chưa "Đang thực hiện".
-3. **Lộ dữ liệu khách**: KTV thấy họ tên đầy đủ, SĐT đầy đủ (vd 0912 456 789) và địa chỉ số nhà chính xác cho cả job "Chờ nhận" chưa nhận và job đã "Từ chối".
+3. **Lộ dữ liệu khách**: KTV thấy họ tên đầy đủ, SĐT đầy đủ (vd 0900 000 301) và địa chỉ số nhà chính xác cho cả job "Chờ nhận" chưa nhận và job đã "Từ chối".
 4. **Mobile không có nút Đăng xuất**: sidebar `hidden lg:flex` bị ẩn dưới 1024 px; thanh tab trên cùng không có Đăng xuất → KTV trên điện thoại không đăng xuất được.
 5. Truy cập sai vai trò (`/`, `/admin/users`) bị chuyển hướng im lặng, không có thông báo 403 trên UI (backend thì trả 403 đúng).
 6. TECH-018: banner lỗi "Không tìm thấy dữ liệu kỹ thuật viên" thay vì trạng thái rỗng; header "Xin chào," không tên; các nút thao tác vẫn hiện khi không có job.
-7. Hồ sơ mock có email `viet.technician@homecare.vn` khác email đăng nhập thật `@homecare.test`; seed mock còn chứa trường `password: "123456"` (dữ liệu mock, không dùng để đăng nhập).
+7. Hồ sơ mock có email `viet.technician@homecare.test` khác email đăng nhập thật `@homecare.test`; seed mock còn chứa trường `password: "123456"` (dữ liệu mock, không dùng để đăng nhập).
 8. Tab Vị trí "tuyến đường đến" job đang chọn, kể cả job ngày mai hoặc đã từ chối.
 9. Rủi ro khi test song song: refresh token là cookie dùng chung cả browser pane → đăng nhập ở tab này đổi phiên của các tab khác khi chúng reload.
 
