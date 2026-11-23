@@ -115,4 +115,4 @@ Không có biện pháp kỹ thuật nào chặn hoàn toàn việc khách và K
 
 1. Cả nhóm duyệt tài liệu này và [luồng nghiệp vụ](../specs/luong-nghiep-vu.md) trong buổi họp 24/11.
 2. Gói A cập nhật bảng trạng thái booking trong HC-18 **trước khi code** (đã đổi theo mô hình thanh toán mới).
-3. ~~Lead tạo ticket cho các phát hiện chưa có việc và cập nhật mô tả các ticket liên quan trên Jira.~~ Đã xong 23/11: tạo HC-102…HC-107, bổ sung quy tắc vào mô tả 30 ticket, thêm link phụ thuộc, dời HC-48 sang đợt 3.
+3. ~~Lead tạo ticket cho các phát hiện chưa có việc và cập nhật mô tả các ticket liên quan trên Jira.~~ Đã xong 23/11: tạo HC-102…HC-107, bổ sung quy tắc vào mô tả 29 ticket, thêm link phụ thuộc, dời HC-48 sang đợt 3.
