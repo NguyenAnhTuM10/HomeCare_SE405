@@ -1,6 +1,6 @@
 # ADR-0003: Cổng thanh toán mô phỏng kiểu VNPay
 
-- Trạng thái: Đã chấp nhận (cài đặt: TV3, Phase 1)
+- Trạng thái: Đã chấp nhận (cài đặt: TV3, Phase 1). Thời điểm thanh toán và việc booking hết hạn được thay bởi [ADR-0009](0009-thanh-toan-khi-hoan-thanh-va-so-cai-ktv.md); phần cổng, chữ ký và IPN giữ nguyên.
 - Ngày: 2026-11-13
 
 ## Bối cảnh

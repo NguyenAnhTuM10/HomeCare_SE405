@@ -34,10 +34,11 @@
 
 ### 3. Thanh toán kiểu sàn
 
-- Trả qua cổng giả lập kiểu VNPay: nhập thẻ test, nhập OTP. App không bao giờ chạm vào số thẻ.
-- Tiền được HomeCare giữ lại, chưa trả cho thợ.
-- Thẻ đã lưu thì lần sau trả bằng một chạm, xác nhận bằng vân tay.
+- Khách trả **khi việc xong**, sau khi thấy giá cuối trên app. Với sửa chữa, thợ báo giá tại nhà trong app và khách bấm duyệt trước khi làm.
+- Trả qua cổng giả lập kiểu VNPay (nhập thẻ test, nhập OTP; app không bao giờ chạm vào số thẻ) hoặc trả tiền mặt cho thợ. Hai cách cùng một giá do server tính.
+- Sổ cái của thợ: tiền trả qua app được HomeCare giữ 24 giờ rồi mới thành thu nhập rút được; tiền mặt thì thợ nợ hoa hồng, nợ quá hạn mức thì tạm ngưng nhận việc.
 - Demo được đủ tình huống: thành công, thẻ bị từ chối, hủy giữa chừng, cổng gửi báo kết quả 2 lần mà vẫn chỉ ghi nhận 1 lần.
+- Lưu thẻ, trả một chạm bằng vân tay: nếu kịp.
 
 ### 4. Theo dõi thợ như Grab
 
@@ -56,8 +57,9 @@
 
 ### 6. Kết thúc: giải ngân hoặc khiếu nại
 
-- Khách bấm "Xác nhận hoàn thành" (hoặc hệ thống tự xác nhận sau 24 giờ) thì tiền mới được chuyển cho thợ.
-- Nếu không hài lòng, khách mở khiếu nại kèm ảnh. Tiền bị giữ lại cho đến khi admin xử lý: hoàn tiền, cho thợ làm lại, hoặc tặng voucher.
+- Khách bấm "Xác nhận hài lòng" (hoặc tự động sau 24 giờ) thì thu nhập của thợ mới rút được.
+- Nếu không hài lòng trong 24 giờ, khách mở khiếu nại kèm ảnh. Thu nhập của thợ bị giữ lại cho đến khi admin xử lý: hoàn tiền, cho thợ làm lại, hoặc tặng voucher. Sửa chữa được bảo hành 7 ngày (làm lại miễn phí).
+- Quy tắc chi tiết (hủy, khách vắng, không có thợ nhận, chống giao dịch ngoài sàn): [docs/specs/luong-nghiep-vu.md](docs/specs/luong-nghiep-vu.md).
 
 ### 7. Chăm sóc khách hàng
 

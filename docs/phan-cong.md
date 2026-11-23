@@ -4,6 +4,7 @@
 > Lead giữ gói **Lead**. Ba người còn lại vote chọn **gói A, B, C**.
 > `HC-xx` là mã trên Jira. M1…M7 đã có trên Jira (HC-88, HC-95…HC-100). Nhãn gói trên Jira đã đổi xong; danh sách đầy đủ có cột "Làm sau" ở [backlog.md](backlog.md).
 > Sơ đồ phụ thuộc (làn theo gói × đợt, nút cổ chai, đường găng): artifact "Sơ đồ phụ thuộc HomeCare" do Lead chia sẻ.
+> **Quy tắc nghiệp vụ chung** (trạng thái booking, thanh toán, hủy, khiếu nại, chống giao dịch ngoài sàn): [specs/luong-nghiep-vu.md](specs/luong-nghiep-vu.md). Kết quả rà soát 35 lỗ hổng nghiệp vụ: [review/2026-11-23-ra-soat-nghiep-vu.md](review/2026-11-23-ra-soat-nghiep-vu.md). Mỗi gói đọc phần của mình trước khi code.
 
 ## 1. Những điều đã chốt
 
