@@ -4,6 +4,7 @@
 > Lead giữ gói **Lead**. Ba người còn lại vote chọn **gói A, B, C**.
 > `HC-xx` là mã trên Jira. M1…M7 đã có trên Jira (HC-88, HC-95…HC-100). Nhãn gói trên Jira đã đổi xong; danh sách đầy đủ có cột "Làm sau" ở [backlog.md](backlog.md).
 > Sơ đồ phụ thuộc (làn theo gói × đợt, nút cổ chai, đường găng): artifact "Sơ đồ phụ thuộc HomeCare" do Lead chia sẻ.
+> **Quy tắc nghiệp vụ chung** (trạng thái booking, thanh toán, hủy, khiếu nại, chống giao dịch ngoài sàn): [specs/luong-nghiep-vu.md](specs/luong-nghiep-vu.md). Kết quả rà soát 35 lỗ hổng nghiệp vụ: [review/2026-11-23-ra-soat-nghiep-vu.md](review/2026-11-23-ra-soat-nghiep-vu.md). Mỗi gói đọc phần của mình trước khi code.
 
 ## 1. Những điều đã chốt
 
@@ -16,18 +17,18 @@
 
 | Gói                                 | Chủ đề seminar                                                                            | Điểm cốt lõi |
 | ----------------------------------- | ----------------------------------------------------------------------------------------- | ------------ |
-| **Lead** — Thanh toán & Chatbot     | Mobile Payment & Fintech · ChatBot / AI (agent đặt lịch, bot hỗ trợ, MCP)                 | 65           |
-| **A** — Đặt lịch, điều phối & gợi ý | Location-based (điều phối theo khoảng cách, gợi ý theo vị trí và thời tiết)               | 65           |
-| **B** — App thợ & realtime          | WebSocket / Realtime · Location-based (GPS, geofence) · Load balancer (realtime chéo máy) | 64           |
+| **Lead** — Thanh toán & Chatbot     | Mobile Payment & Fintech · ChatBot / AI (agent đặt lịch, bot hỗ trợ, MCP)                 | 68           |
+| **A** — Đặt lịch, điều phối & gợi ý | Location-based (điều phối theo khoảng cách, gợi ý theo vị trí và thời tiết)               | 72           |
+| **B** — App thợ & realtime          | WebSocket / Realtime · Location-based (GPS, geofence) · Load balancer (realtime chéo máy) | 66           |
 | **C** — Tài khoản, thiết bị & CSKH  | Authentication & Authorization (vân tay/Face ID) · QR code · CSKH (ticket, khiếu nại)     | 63           |
 
-Điểm cốt lõi không tính việc _(nếu kịp)_. Bản 22/11 ghi 57/57/55/61 nhưng thiếu khoảng 30 điểm việc app và hạ tầng (xem mục 10). Theo đợt:
+Điểm cốt lõi không tính việc _(nếu kịp)_. Bản 22/11 ghi 57/57/55/61 nhưng thiếu khoảng 30 điểm việc app và hạ tầng (xem mục 10); rà soát nghiệp vụ 23/11 thêm HC-102…HC-107 (A gồm cả HC-76 E2E chuyển từ việc chung). Theo đợt:
 
 | Gói  | Đợt 1 | Đợt 2 | Đợt 3 |
 | ---- | ----- | ----- | ----- |
-| Lead | 21    | 28    | 16    |
-| A    | 29    | 28    | 8     |
-| B    | 25    | 28    | 11    |
+| Lead | 21    | 30    | 17    |
+| A    | 29    | 30    | 13    |
+| B    | 25    | 30    | 11    |
 | C    | 26    | 29    | 8     |
 
 ## 3. Tính năng → gói → Jira
@@ -155,19 +156,19 @@ Mỗi người dùng phần này để theo dõi việc của mình, xếp theo 
 **Lead — Thanh toán & Chatbot**
 
 - Đợt 1: ◆ HC-15 khung app (đăng nhập, SecureStore, tab) · HC-19 cổng giả lập · HC-36 giao dịch + IPN (làm trên booking seed) · HC-38 màn thanh toán
-- Đợt 2: **HC-53 chatbot đặt lịch** · **HC-58 màn chat** · HC-94 màn chat khách–thợ (đỡ B) · **HC-95 (M1) bot hỗ trợ** · HC-57 giữ tiền → giải ngân · HC-62 hoàn tiền · HC-61 Admin đối soát · HC-96 (M3) giọng nói _(nếu kịp)_
-- Đợt 3: **HC-75 MCP server** · HC-77 hoa hồng · HC-100 (M2) màn thu nhập · HC-74 lưu thẻ trả một chạm · HC-80 VietQR, HC-84 nhiều agent _(nếu kịp)_
+- Đợt 2: **HC-53 chatbot đặt lịch** · **HC-58 màn chat** · HC-94 màn chat khách–thợ (đỡ B) · **HC-95 (M1) bot hỗ trợ + RAG chính sách** · HC-57 thu nhập chờ → khả dụng · HC-105 tiền mặt hai bên xác nhận · HC-62 hoàn tiền · HC-61 Admin đối soát · HC-96 (M3) giọng nói _(nếu kịp)_
+- Đợt 3: **HC-75 MCP server** · HC-77 sổ cái KTV · HC-107 KTV nạp tiền trả nợ · HC-106 nợ của khách · HC-100 (M2) màn thu nhập · HC-74 lưu thẻ, HC-80 VietQR, HC-84 nhiều agent _(nếu kịp)_
 
 **A — Đặt lịch, điều phối & gợi ý**
 
 - Đợt 1: ◆ HC-18 state machine · ◆ HC-17 catalog · HC-29 báo giá · ◆ HC-33 Booking API (merge phần tạo + chi tiết trước, danh sách sau) · HC-31 thợ và lịch trống · HC-37 màn đặt lịch
-- Đợt 2: HC-41 dữ liệu mẫu · HC-91 màn Lịch của tôi · HC-51 tự gán thợ · HC-56 offer có hạn · HC-60 Admin điều phối · HC-43 gợi ý theo ngữ cảnh · HC-48 push gợi ý
-- Đợt 3: HC-71 hủy/đổi lịch · HC-76 E2E luồng chính · HC-101 đánh giá thợ, HC-79 bản đồ nhiệt _(nếu kịp)_
+- Đợt 2: HC-41 dữ liệu mẫu · HC-91 màn Lịch của tôi · HC-102 báo giá tại chỗ · HC-51 tự gán thợ · HC-56 offer có hạn · HC-60 Admin điều phối · HC-43 gợi ý theo ngữ cảnh
+- Đợt 3: HC-71 hủy/đổi lịch · HC-48 push gợi ý · HC-103 đặt lại thợ quen · HC-76 E2E luồng chính · HC-101 đánh giá thợ, HC-79 bản đồ nhiệt _(nếu kịp)_
 
 **B — App thợ & realtime**
 
 - Đợt 1: ◆ HC-24 Socket.IO gateway · ◆ HC-86 hàng đợi job · HC-30 API thợ · HC-35 đổi trạng thái, bắt buộc ảnh · HC-34 app thợ · HC-90 tab Tổng quan/Hồ sơ, bật nhận việc · HC-87 socket client mobile · HC-28 hotline
-- Đợt 2: HC-72 upload ảnh dùng chung (đầu đợt) · HC-44 thông báo + API push token · HC-47 vị trí, GPS giả, ETA · HC-92 GPS chạy nền trên app · HC-49 bản đồ theo dõi · HC-45 chat khách–thợ (server) · HC-54 chụp ảnh
+- Đợt 2: HC-72 upload ảnh dùng chung (đầu đợt) · HC-44 thông báo + API push token · HC-47 vị trí, GPS giả, ETA · HC-92 GPS chạy nền trên app · HC-49 bản đồ theo dõi · HC-45 chat khách–thợ (server, lọc SĐT) · HC-54 chụp ảnh · HC-104 app thợ: báo giá tại chỗ, khách vắng
 - Đợt 3: HC-52 geofence · HC-97 (M4) push Nhận/Từ chối · HC-67 simulator · HC-42 Admin quản lý thợ · HC-81 offline, HC-82 gọi thoại, HC-83 bản đồ admin _(nếu kịp)_
 
 **C — Tài khoản, thiết bị & CSKH**
