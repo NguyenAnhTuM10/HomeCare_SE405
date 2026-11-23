@@ -1,6 +1,6 @@
 # Giao diện: dùng lại 1:1 bản cũ + dữ liệu giả
 
-> Đọc file này trước khi đụng vào bất kỳ màn hình nào trong `frontend/`.
+> **Từ 22/11/2026, các màn web của khách và kỹ thuật viên được đóng băng** (khách và thợ dùng app `mobile/`, web chỉ còn cho admin). File này giữ lại để biết các màn đó được chép từ prototype thế nào; chúng là bản tham chiếu giao diện cho app. Phân công mới: [phan-cong.md](phan-cong.md).
 
 ## 1. Yêu cầu
 
@@ -50,24 +50,11 @@ Thư viện được **ghim đúng phiên bản bản cũ**: `tailwindcss 3.4.19
 - Tắt toàn bộ mock: build/chạy với `VITE_USE_MOCKS=false`.
 - Test: `pnpm --filter @homecare/frontend test`.
 
-## 6. Khi làm API thật cho một màn hình (bước sau)
+## 6. Nối API thật
 
-1. Làm API trong module của mình (skill `nest-module`), **trả về đúng dạng dữ liệu** mà route tương ứng trong `mocks/legacy-server.js` đang trả, để giao diện không phải sửa.
-2. Xóa route đó khỏi `mocks/legacy-server.js` → `apiFetch` tự gọi API thật.
-3. Xử lý các `TODO` của màn hình (mục 7).
-4. So lại giao diện với bản cũ (mục 3) trước khi mở PR.
+Không nối API cho các màn web khách/thợ nữa. API được làm cho app và không cần trả đúng dạng dữ liệu của mock. Route mock nào thuộc gói nào: [phan-cong.md](phan-cong.md) mục 3.
 
-| Màn hình                     | Route mock đang phục vụ                                                                                     | Người phụ trách |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------- |
-| Tổng quan + chuông thông báo | `GET /dashboard`                                                                                            | TV1             |
-| Thiết bị & nhắc bảo trì      | `/devices`, `/reminders` (+ đọc `/bookings`, `/dashboard`)                                                  | TV1             |
-| Hồ sơ                        | `/profile`, `/payment-methods`, `/profile-options`                                                          | TV1             |
-| Vệ sinh, Sửa chữa, Đặt lịch  | `/services`, `/booking-options`, `/repair-options`, `/technicians`, `/technician-availability`, `/bookings` | TV2             |
-| Thanh toán                   | `/payments`, `/payment-gateways`                                                                            | TV3             |
-| Theo dõi                     | đọc `/bookings`, `/dashboard` (+ realtime mới)                                                              | TV4             |
-| Kỹ thuật viên                | `/technician/dashboard`, `/technician/jobs/…`, `/technician/location`                                       | TV4             |
-
-## 7. Những chỗ API thật phải làm khác bản cũ (đã đánh dấu `TODO` trong code)
+## 7. Những lỗi của bản cũ mà API thật không được lặp lại
 
 Mock giữ nguyên hành vi bản cũ để giao diện chạy y hệt. Nhưng **API thật không được lặp lại các lỗ hổng sau** (vi phạm CLAUDE.md, reviewer sẽ không duyệt):
 
@@ -79,6 +66,6 @@ Mock giữ nguyên hành vi bản cũ để giao diện chạy y hệt. Nhưng *
 
 ## 8. App Expo (đã chốt 22/11/2026)
 
-Khách và kỹ thuật viên dùng **app Expo** (`mobile/`); admin dùng web. Web khách giữ làm kênh dự phòng, màn `/technician` trên web sẽ được thay bằng app.
+Khách và kỹ thuật viên dùng **app Expo** (`mobile/`); admin dùng web. Màn web khách và `/technician` đóng băng, cuối kỳ ẩn khỏi web (HC-73).
 
 App giống **≥ 90% prototype**: giữ màu, font, icon, câu chữ, kiểu card và nút; được đổi bố cục cho điện thoại (thanh tab dưới, một cột, date picker và bottom sheet của điện thoại). Mỗi PR màn hình app kèm ảnh đặt cạnh màn prototype.

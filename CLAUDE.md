@@ -1,7 +1,7 @@
 # HomeCare — guide for Claude Code (shared by the whole team)
 
 On-demand home services platform (cleaning, repair, appliance care). SE405 capstone, 4 developers.
-Customers use the web app, technicians the Expo mobile app, admins the web operations console.
+Customers and technicians use the Expo mobile app, admins the web operations console.
 
 ## Stack & layout
 
@@ -12,7 +12,7 @@ pnpm monorepo (Node ≥ 22, pnpm 10 via corepack):
 | `backend`                        | NestJS 11 modular monolith. Roles: `api` (HTTP/WS, behind Nginx) and `worker` (outbox relay, jobs) — same image                                                                                 |
 | `backend/prisma/schema/*.prisma` | Prisma 7 schema, **one file per module** (owner in header)                                                                                                                                      |
 | `frontend`                       | React 19 + Vite + Tailwind **3.4.19** + lucide-react **1.71.0** (both pinned to the prototype's versions) + TanStack Query + react-router 7. Mock API for business data in `frontend/src/mocks` |
-| `mobile`                         | Expo app (to be created by TV4)                                                                                                                                                                 |
+| `mobile`                         | Expo SDK 58 app for customers + technicians: Expo Router (`src/app`), NativeWind 4.2.7 on Tailwind 3.4.19 (same classes as the prototype), lucide-react-native 1.71.0. See `mobile/README.md`   |
 | `payment-sandbox`                | Mock VNPay gateway (to be created by TV3, see ADR-0003)                                                                                                                                         |
 | `packages/shared`                | zod schemas, enums, error codes, socket events — the contract between server and clients                                                                                                        |
 | `infra/`                         | docker compose (dev deps; full LB stack), Nginx, Prometheus/Grafana                                                                                                                             |
@@ -48,17 +48,17 @@ Reference implementation for all of the above: `backend/src/modules/identity` + 
 
 ## Conventions
 
-- **UI = the prototype, pixel for pixel.** Screens in `frontend/src/features`, `layouts/CustomerLayout.jsx`, `pages/LoginPage.jsx` must stay identical to `legacy/web/src` (customer requirement): never redesign, restyle, reword or "improve" them, never upgrade Tailwind/lucide. Change only data wiring, and re-check against legacy as described in `docs/frontend-migration.md` §3. New screens (e.g. admin console) reuse the same visual language.
-- Business screens currently read mock data (`frontend/src/mocks`, a port of the prototype backend). When building a real endpoint, return the mock's response shape and delete its mock route.
+- **Clients.** Customers and technicians use the Expo app (`mobile/`); the web is for admins only. The web customer/technician screens (`frontend/src/features`, `layouts/CustomerLayout.jsx`, still on mock data in `frontend/src/mocks`) are **frozen**: do not wire or edit them; they stay, with `legacy/`, as the UI reference. Design endpoints for the app; they do not have to match the mock shapes.
+- **UI = the prototype.** App screens match the prototype at least 90% (colours, fonts, icons, wording; phone layout allowed). Never upgrade Tailwind (3.4.19) or lucide (1.71.0) on web or app. New web screens (admin console) reuse the same visual language.
 - Code, identifiers, commits: English. UI text, user-facing error messages, docs: Vietnamese.
 - Branches: start from `dev`, name `feat/<module>-<topic>` / `fix/...` / `chore/...`, open the PR **into `dev`** (staging). Only a release PR `dev → main` or `hotfix/*` may target `main` (CI job "Branch policy" enforces it). See ADR-0007.
 - Conventional Commits; PR template checklist must be satisfied. No AI co-author trailers in commits.
 - Money = `Int` VND. Ids = UUID v7. Times = `timestamptz`.
 - Web: access token in memory only (`frontend/src/lib/api-client.ts`); never localStorage.
 
-## Team ownership (details: docs/team.md)
+## Team ownership
 
-TV1 identity/profile/admin · TV2 catalog/booking/dispatch · TV3 payments/sandbox · TV4 technician app/tracking/notifications. Shared kernel changes need two reviewers.
+Work is split into packages, each owned end to end (API, DB, app/web screens, tests): Lead = payments + AI assistant, A = catalog/booking/dispatch/recommendation, B = realtime/technician/tracking/notifications, C = identity/profile/devices/support. See `docs/phan-cong.md`. Shared kernel changes need two reviewers.
 
 ## How to work here (installed plugins + project skills)
 
