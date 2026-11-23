@@ -99,9 +99,9 @@ const defaultPaymentMethods = [
   {
     id: 'wallet',
     name: 'Ví điện tử',
-    detail: 'MoMo - 0909 123 456',
+    detail: 'MoMo - 0900 000 999',
     accountLabel: 'MoMo',
-    accountValue: '0909 123 456',
+    accountValue: '0900 000 999',
     provider: 'MoMo',
     referencePrefix: 'WALLET',
     fee: 2500,
@@ -109,9 +109,9 @@ const defaultPaymentMethods = [
   {
     id: 'bank',
     name: 'Chuyển khoản ngân hàng',
-    detail: 'Vietcombank - 1028 884 688',
+    detail: 'Vietcombank - 0000 000 001',
     accountLabel: 'VCB - Nguyễn Minh Khang',
-    accountValue: '1028 884 688',
+    accountValue: '0000 000 001',
     provider: 'Vietcombank',
     referencePrefix: 'BANK',
     fee: 0,

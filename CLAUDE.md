@@ -26,7 +26,7 @@ pnpm install                 # also builds packages/shared
 pnpm infra:up                # Postgres, Redis, Mailpit, MinIO (Docker)
 cp .env.example backend/.env
 pnpm db:migrate              # apply/create migrations (dev)
-pnpm db:seed                 # sample data; password for every seed account: Homecare@123
+pnpm db:seed                 # sample data; seed accounts + password from SEED_* in backend/.env
 pnpm dev                     # api :4000 (Swagger /api/docs) + web :3020 (proxies /api)
 pnpm lint | pnpm typecheck | pnpm test | pnpm test:e2e   # e2e needs infra:up, uses DB homecare_test
 pnpm stack:up                # Nginx LB :8080 + 3 API replicas + worker (production-like)

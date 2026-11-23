@@ -157,13 +157,17 @@ pnpm dev
 
 Giao diện giống y hệt bản prototype. Đăng nhập dùng API thật; các màn hình nghiệp vụ tạm dùng **dữ liệu giả** chép từ backend cũ, tải lại trang là dữ liệu về như ban đầu. Tắt mock: chạy với `VITE_USE_MOCKS=false`. Xem [docs/frontend-migration.md](docs/frontend-migration.md).
 
-### Tài khoản mẫu (mật khẩu chung: `Homecare@123`)
+### Tài khoản mẫu
 
-| Vai trò       | Đăng nhập bằng                                      |
-| ------------- | --------------------------------------------------- |
-| Quản trị      | `admin@homecare.test`                               |
-| Khách hàng    | `khang.nguyen@example.com`, `linh.tran@example.com` |
-| Kỹ thuật viên | `TECH-088`, `TECH-018`, `TECH-027`, `TECH-041`      |
+`pnpm db:seed` tạo các tài khoản test theo biến `SEED_*` trong `backend/.env`. Mật khẩu chung là `SEED_PASSWORD` (mặc định trong `.env.example`: `Homecare@123`). Chạy lại seed sẽ đặt lại tên, số điện thoại và mật khẩu của các tài khoản này. Khi deploy staging, đổi email và mật khẩu riêng; seed từ chối chạy khi `NODE_ENV=production`.
+
+| Vai trò       | Đăng nhập bằng (mặc định)                                                                            |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| Quản trị      | `SEED_ADMIN_EMAIL` = `admin@homecare.test`                                                           |
+| Khách hàng    | `SEED_CUSTOMER_EMAIL`, `SEED_CUSTOMER_2_EMAIL` = `khang.nguyen@example.com`, `linh.tran@example.com` |
+| Kỹ thuật viên | `TECH-088`, `TECH-018`, `TECH-027`, `TECH-041`                                                       |
+
+Mọi dữ liệu cá nhân trong seed và mock đều là giả: số điện thoại dải `0900 000 xxx`, email đuôi `example.com` / `homecare.test`.
 
 Dữ liệu giả có sẵn cho `khang.nguyen@example.com`, `linh.tran@example.com` và `TECH-088`; tài khoản khác thấy màn hình trống.
 

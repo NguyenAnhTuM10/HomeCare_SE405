@@ -169,7 +169,7 @@ Không nhất quán
 - Địa chỉ: Vệ sinh để trống, Sửa chữa/Đặt lịch điền sẵn địa chỉ mặc định.
 - Vệ sinh/Sửa chữa không chọn được ngày (luôn "Hôm nay"); Đặt lịch chọn được ngày. Thời gian lưu dạng chuỗi tương đối ("Hôm nay", "Ngày mai", "Theo lịch định kỳ") nên trùng lịch so sánh chuỗi.
 - Thẻ số ở Tổng quan (6 lịch hẹn, 6 thanh toán) không khớp Tracking (11–12 booking) và Payment (6–8 giao dịch); "Thanh toán … Giao dịch từ backend", "cập nhật từ backend" là nhãn sai (mock).
-- Hồ sơ: "Dịch vụ hoàn tất" tính cả "Đã thanh toán"; đổi tên chỉ đổi trong mock, header vẫn tên backend; tài khoản mới cũng thấy sẵn Visa ****2486, MoMo 0909 123 456, Vietcombank 1028 884 688 (accountLabel "Nguyễn Minh Khang") — dữ liệu mặc định của mock cho mọi user.
+- Hồ sơ: "Dịch vụ hoàn tất" tính cả "Đã thanh toán"; đổi tên chỉ đổi trong mock, header vẫn tên backend; tài khoản mới cũng thấy sẵn Visa ****2486, MoMo 0900 000 999, Vietcombank 0000 000 001 (accountLabel "Nguyễn Minh Khang") — dữ liệu mặc định của mock cho mọi user.
 - Avatar chữ cái ở sidebar lấy chữ đầu của từ cuối: "Tester Khách Hàng" → "H"; ở Hồ sơ hiện "HÀ".
 - Seed "Tủ lạnh Samsung" có loại "MÁY LẠNH"; hãng "Chưa cập nhật".
 - Sức khỏe thiết bị (%) do người dùng tự nhập trong form.
