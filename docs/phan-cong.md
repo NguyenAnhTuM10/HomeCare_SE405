@@ -151,3 +151,16 @@ Ticket nào **đã có người làm dở** thì người đó làm xong và mer
 - Mobile: Expo Router + NativeWind và một màn chờ; HC-15 chưa xong.
 - Web admin: chỉ màn Người dùng là thật.
 - CI trên `dev` và `main` xanh; `main` chưa có tag.
+
+## 11. Sau MVP (làm khi xong phạm vi trên)
+
+Phạm vi ở mục 2–4 là **MVP**. Các việc dưới đây đã xác định là cần cho một sàn chạy thật, nhưng chỉ tạo ticket khi MVP xong (hoặc khi một gói xong sớm):
+
+| Việc                                                                                            | Gói          | Điểm ước lượng |
+| ----------------------------------------------------------------------------------------------- | ------------ | -------------- |
+| Admin quản lý dịch vụ, bảng giá, hạng mục sửa chữa, voucher (hiện chỉ có trong seed)            | API 1, màn 4 | 5              |
+| Đánh giá thợ thành việc chính (HC-101, hiện là _nếu kịp_): điều phối và khiếu nại cần điểm thật | 2            | 3              |
+| Admin tổng quan kinh doanh: số đơn, doanh thu, hoa hồng, tỷ lệ hoàn thành, điểm trung bình      | 4            | 3              |
+| Biên nhận điện tử sau thanh toán (email + xem trong app), nghe `payment.succeeded`              | 3            | 2              |
+
+Sau đó mới đến các việc _(nếu kịp)_ trong checklist mục 4.
