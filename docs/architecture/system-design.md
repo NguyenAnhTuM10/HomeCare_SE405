@@ -122,15 +122,15 @@ Tách worker giúp request của người dùng không bị chậm bởi job n�
 
 ```mermaid
 flowchart LR
-  identity[identity\nTV1]
-  profile[profile\nTV1]
-  catalog[catalog\nTV2]
-  booking[booking\nTV2]
-  dispatch[dispatch\nTV2]
-  payments[payments\nTV3]
-  technician[technician\nTV4]
-  tracking[tracking\nTV4]
-  notifications[notifications\nTV4]
+  identity[identity\ngói 4]
+  profile[profile\ngói 4]
+  catalog[catalog\ngói 1]
+  booking[booking\ngói 1]
+  dispatch[dispatch\ngói 2]
+  payments[payments\ngói 1]
+  technician[technician\ngói 2]
+  tracking[tracking\ngói 2]
+  notifications[notifications\ngói 3]
 
   booking -->|tính giá| catalog
   booking -->|gán KTV| dispatch
@@ -215,7 +215,7 @@ sequenceDiagram
 
 Thiết kế này cho phép **API stateless** (replica nào cũng verify được JWT) nhưng vẫn **thu hồi tức thì** (logout, khóa tài khoản) nhờ Redis. Chi tiết: [ADR-0004](../adr/0004-auth-tokens.md).
 
-### 5.2 Đặt lịch + thanh toán qua cổng (TV2 + TV3)
+### 5.2 Đặt lịch + thanh toán qua cổng (gói 1)
 
 ```mermaid
 sequenceDiagram
@@ -243,7 +243,7 @@ sequenceDiagram
 
 Chi tiết: [ADR-0003](../adr/0003-mock-vnpay-gateway.md).
 
-### 5.3 Theo dõi realtime (TV4)
+### 5.3 Theo dõi realtime (gói 2 + gói 3)
 
 ```mermaid
 sequenceDiagram

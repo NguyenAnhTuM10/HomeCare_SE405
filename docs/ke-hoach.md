@@ -27,13 +27,13 @@ Danh sách đầy đủ, kể theo hành trình demo, nằm ở [README](../READ
 ## 4. Làm việc trên Jira
 
 - Project **HomeCare (HC)**, bảng Kanban. 12 epic theo domain.
-- **Nhãn `dot-1`, `dot-2`, `dot-3`** là đợt: 23/11–06/12, 07/12–20/12, 21/12–27/12. Nhãn gói `lead`, `goi-a`, `goi-b`, `goi-c`, `team` cho biết việc thuộc gói nào.
+- **Nhãn `dot-1`, `dot-2`, `dot-3`** là đợt: 23/11–06/12, 07/12–20/12, 21/12–27/12. Nhãn gói `goi-1`, `goi-2`, `goi-3`, `goi-4`, `team` cho biết việc thuộc gói nào.
 - **Thứ tự trên bảng đã sắp sẵn:** việc nền ở trên, việc phụ thuộc ở dưới. Lấy việc từ trên xuống trong đợt của mình. Mỗi ticket ghi **"Làm sau"** (phải đợi việc nào) và **"Vùng code"** (sẽ sửa thư mục nào).
 - Việc có chữ **[Nếu kịp]** chỉ làm khi xong hết phần còn lại.
 - Mỗi người tối đa **2 việc "In Progress"** cùng lúc.
 - Tên nhánh và commit có key Jira: nhánh `feat/HC-23-booking-api`, commit `feat(booking): create booking (HC-23)`.
 
-Phân công theo gói (lead giữ Thanh toán & AI, ba người còn lại vote gói A, B, C): **[phan-cong.md](phan-cong.md)**.
+Phân công theo luồng nghiệp vụ (từ 28/11: gói 1 Đặt lịch & Thanh toán do Lead giữ kèm CI/CD; gói 2, 3, 4 cho ba người còn lại): **[phan-cong.md](phan-cong.md)**. Quy tắc nghiệp vụ chung: [specs/luong-nghiep-vu.md](specs/luong-nghiep-vu.md).
 
 ## 5. Tránh conflict
 
@@ -46,11 +46,11 @@ Phân công theo gói (lead giữ Thanh toán & AI, ba người còn lại vote 
 4. **Migration:** mỗi PR một migration riêng; trước khi merge thì rebase `dev` và chạy lại `pnpm db:migrate`; không sửa migration đã merge.
 5. Mở PR sớm (draft) để người khác thấy mình đang đụng file nào.
 
-## 6. Việc đầu tiên của tuần này
+## 6. Việc đầu tiên sau khi chia lại (28/11)
 
-- **Cả nhóm:** đọc file này và [specs/current-app.md](specs/current-app.md); gắn tag `v0.1.0`; điền CODEOWNERS; dựng tunnel để điện thoại gọi được API.
-- **Vote gói** theo [phan-cong.md](phan-cong.md), rồi chốt các điểm nối giữa các gói (mục 4 của file đó).
-- **Lead:** khung app Expo (HC-15), rồi payment-sandbox.
-- **Gói A:** state machine booking, rồi báo giá phía server (gộp 4 công thức giá đang lệch nhau thành một).
-- **Gói B:** Socket.IO gateway, rồi API kỹ thuật viên.
-- **Gói C:** sửa lỗi khóa tạm đăng nhập (ai cũng khóa được tài khoản người khác 15 phút), rồi API hồ sơ và địa chỉ.
+- **Cả nhóm:** đọc [phan-cong.md](phan-cong.md) và [specs/luong-nghiep-vu.md](specs/luong-nghiep-vu.md); chọn gói 2, 3, 4; chốt hợp đồng giữa các gói (mục 6 của phan-cong).
+- **Gói 1 (Lead):** state machine booking (HC-18), catalog (HC-17), rồi báo giá phía server (HC-29) và Booking API (HC-33).
+- **Gói 2:** API kỹ thuật viên (HC-30) trên state machine mới, rồi app thợ.
+- **Gói 3:** Socket.IO gateway (HC-24), rồi thông báo và chat khách–thợ.
+- **Gói 4:** khung app Expo (HC-15), sửa lỗi khóa tạm (HC-16), rồi API hồ sơ và địa chỉ (HC-21).
+- Mốc merge: mục 7 của [phan-cong.md](phan-cong.md).

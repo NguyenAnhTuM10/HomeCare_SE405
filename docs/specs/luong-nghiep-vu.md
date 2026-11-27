@@ -63,7 +63,7 @@ stateDiagram-v2
 
 Mọi lần chuyển: cập nhật trạng thái + ghi lịch sử + `AuditService.record` + `OutboxService.enqueue` trong một transaction, khóa lạc quan bằng `version`.
 
-> **Thay đổi so với schema hiện tại** (gói A làm trong HC-18 bằng một migration mới, không sửa migration `init`): bỏ `PENDING_PAYMENT`, `CONFIRMED_CASH`, `PAID`, `EXPIRED`; thêm `PENDING_DISPATCH`, `ARRIVED`, `WORK_DONE`; `paymentMethod` không còn bắt buộc lúc đặt; thêm `paymentStatus` (`UNPAID`, `PAID`), `cancelReasonCode`, `preferredTechnicianId`, `deviceId`.
+> **Thay đổi so với schema hiện tại** (gói 1 làm trong HC-18 bằng một migration mới, không sửa migration `init`): bỏ `PENDING_PAYMENT`, `CONFIRMED_CASH`, `PAID`, `EXPIRED`; thêm `PENDING_DISPATCH`, `ARRIVED`, `WORK_DONE`; `paymentMethod` không còn bắt buộc lúc đặt; thêm `paymentStatus` (`UNPAID`, `PAID`), `cancelReasonCode`, `preferredTechnicianId`, `deviceId`.
 
 ## 5. Hành trình của khách
 
@@ -181,13 +181,13 @@ Một agent, hai điểm vào: màn **Đặt lịch bằng chat** và màn **H�
 
 | Công cụ                | Dữ liệu                           | Ghi chú                                                  |
 | ---------------------- | --------------------------------- | -------------------------------------------------------- |
-| `search_services`      | Catalog (gói A)                   | Không dùng RAG cho dữ liệu có cấu trúc; không bịa giá    |
-| `get_quote`            | Hàm báo giá (gói A)               | Trả `G`, `F`, `D`, `T`                                   |
-| `get_availability`     | Lịch trống (gói A)                |                                                          |
+| `search_services`      | Catalog (gói 1)                   | Không dùng RAG cho dữ liệu có cấu trúc; không bịa giá    |
+| `get_quote`            | Hàm báo giá (gói 1)               | Trả `G`, `F`, `D`, `T`                                   |
+| `get_availability`     | Lịch trống (gói 1)                |                                                          |
 | `create_booking_draft` | Lịch nháp, hạn 15 phút            | Chỉ tạo nháp; khách bấm Xác nhận mới thành lịch thật     |
 | `get_my_bookings`      | Booking của chính người hỏi       | Lọc theo chủ sở hữu ở server                             |
 | `search_policies`      | RAG trên tài liệu chính sách, FAQ | Trả lời kèm nguồn; không có nguồn thì nói không biết     |
-| `handoff_to_staff`     | Tạo ticket hỗ trợ (gói C)         | Bắt buộc khi liên quan tiền, an toàn, hoặc khách yêu cầu |
+| `handoff_to_staff`     | Tạo ticket hỗ trợ (gói 3)         | Bắt buộc khi liên quan tiền, an toàn, hoặc khách yêu cầu |
 
 - Bot **không** thực hiện thanh toán, hủy, hoàn tiền; chỉ dẫn khách tới màn tương ứng.
 - Nội dung khách gõ và kết quả công cụ là dữ liệu, không phải lệnh; mỗi lần gọi công cụ được audit; giới hạn số tin mỗi người mỗi ngày.
@@ -231,16 +231,16 @@ Mọi handler idempotent (giao ít nhất một lần).
 
 ## 12. Ảnh hưởng tới các ticket
 
-| Gói  | Ticket đã bổ sung quy tắc (23/11)                                                                                                                                                                                                                                                      | Ticket mới (tạo 23/11)                                                            |
-| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| A    | HC-18 (trạng thái mới), HC-29 (phí kiểm tra, voucher do sàn chịu, bỏ phụ phí), HC-31 (năng lực theo khung giờ), HC-33 (không chọn phương thức trả lúc đặt), HC-51 (điều phối ngay khi tạo, bộ lọc), HC-56 (hạn offer, không có KTV), HC-71 (chính sách hủy), HC-48 (dời đợt 3), HC-101 | HC-102 báo giá tại chỗ; HC-103 đặt lại thợ quen                                   |
-| B    | HC-30 (dữ liệu khách theo giai đoạn, tạm ngưng nhận việc), HC-35, HC-45 (lọc SĐT), HC-52 (geofence ở server), HC-54/HC-72 (ảnh trong khung giờ job), HC-81                                                                                                                             | HC-104 app thợ: báo giá tại chỗ, báo khách vắng                                   |
-| C    | HC-62, HC-63 (thời hạn, giới hạn hoàn), HC-50 (KTV đăng ký thiết bị khi có job), HC-23 (sức khỏe thiết bị do server tính), HC-42 (không trùng email/SĐT với khách)                                                                                                                     | —                                                                                 |
-| Lead | HC-36 (tạo payment khi `WORK_DONE`), HC-38, HC-57 (thu nhập chờ → khả dụng), HC-77 (sổ cái đầy đủ), HC-74 (hạ xuống nếu kịp), HC-53 + HC-95 (một agent, RAG), HC-61, HC-62                                                                                                             | HC-105 tiền mặt hai bên xác nhận; HC-106 nợ của khách; HC-107 KTV nạp tiền trả nợ |
+| Gói (cách chia 23/11) | Ticket đã bổ sung quy tắc (23/11)                                                                                                                                                                                                                                                      | Ticket mới (tạo 23/11)                                                            |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| A                     | HC-18 (trạng thái mới), HC-29 (phí kiểm tra, voucher do sàn chịu, bỏ phụ phí), HC-31 (năng lực theo khung giờ), HC-33 (không chọn phương thức trả lúc đặt), HC-51 (điều phối ngay khi tạo, bộ lọc), HC-56 (hạn offer, không có KTV), HC-71 (chính sách hủy), HC-48 (dời đợt 3), HC-101 | HC-102 báo giá tại chỗ; HC-103 đặt lại thợ quen                                   |
+| B                     | HC-30 (dữ liệu khách theo giai đoạn, tạm ngưng nhận việc), HC-35, HC-45 (lọc SĐT), HC-52 (geofence ở server), HC-54/HC-72 (ảnh trong khung giờ job), HC-81                                                                                                                             | HC-104 app thợ: báo giá tại chỗ, báo khách vắng                                   |
+| C                     | HC-62, HC-63 (thời hạn, giới hạn hoàn), HC-50 (KTV đăng ký thiết bị khi có job), HC-23 (sức khỏe thiết bị do server tính), HC-42 (không trùng email/SĐT với khách)                                                                                                                     | —                                                                                 |
+| Lead                  | HC-36 (tạo payment khi `WORK_DONE`), HC-38, HC-57 (thu nhập chờ → khả dụng), HC-77 (sổ cái đầy đủ), HC-74 (hạ xuống nếu kịp), HC-53 + HC-95 (một agent, RAG), HC-61, HC-62                                                                                                             | HC-105 tiền mặt hai bên xác nhận; HC-106 nợ của khách; HC-107 KTV nạp tiền trả nợ |
 
 ## 13. Câu hỏi mở (chốt trong buổi họp 24/11)
 
 1. Phí kiểm tra sửa chữa có được trừ vào tổng khi khách duyệt báo giá không? (đề xuất: có)
 2. Có cho khách **trả trước** với dịch vụ vệ sinh giá cố định không? (đề xuất: không, để chỉ có một luồng thanh toán)
-3. Danh mục hạng mục sửa chữa và khung giá: gói A soạn trong seed của HC-17.
-4. Tài liệu chính sách cho RAG (hủy, hoàn tiền, bảo hành, FAQ): Lead soạn trong `docs/policies/`, gói C duyệt câu chữ.
+3. Danh mục hạng mục sửa chữa và khung giá: gói 1 soạn trong seed của HC-17.
+4. Tài liệu chính sách cho RAG (hủy, hoàn tiền, bảo hành, FAQ): gói 3 soạn trong `docs/policies/`, gói 1 duyệt phần tiền và hoàn tiền.

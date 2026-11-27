@@ -6,10 +6,10 @@
 
 ## Module bị ảnh hưởng
 
-- [ ] identity / profile (TV1)
-- [ ] catalog / booking / dispatch (TV2)
-- [ ] payments (TV3)
-- [ ] technician / tracking / notifications (TV4)
+- [ ] Gói 1: catalog / booking / payments / payment-sandbox
+- [ ] Gói 2: dispatch / technician / tracking
+- [ ] Gói 3: realtime / notifications / support / assistant
+- [ ] Gói 4: identity / profile / recommendation / khung app
 - [ ] shared kernel (`backend/src/common`, `packages/shared`, `infra/`) — cần cả nhóm review
 
 ## Checklist (Definition of Done)

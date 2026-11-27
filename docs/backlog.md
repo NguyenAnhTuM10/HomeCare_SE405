@@ -1,9 +1,9 @@
 # Backlog đến buổi bảo vệ (cuối 12/2026)
 
-Bản chính nằm trên Jira: [se405.atlassian.net, project HC](https://se405.atlassian.net/jira/software/projects/HC/boards/2). File này để đối chiếu, sinh từ Jira ngày 23/11/2026. Cách dùng: xem [ke-hoach.md](ke-hoach.md) mục 4–5.
+Bản chính nằm trên Jira: [se405.atlassian.net, project HC](https://se405.atlassian.net/jira/software/projects/HC/boards/2). File này để đối chiếu, cập nhật ngày 28/11/2026. Cách dùng: xem [ke-hoach.md](ke-hoach.md) mục 4–5.
 
 - **Mã HC** khớp Jira. Làm từ trên xuống trong đợt của mình; cột **Làm sau** là việc phải xong trước.
-- **Gói** lấy từ nhãn Jira (`lead`, `goi-a`, `goi-b`, `goi-c`, `team`), xem [phan-cong.md](phan-cong.md). **Điểm** là độ lớn ước lượng.
+- **Gói** theo cách chia 28/11 ([phan-cong.md](phan-cong.md)): 1 Đặt lịch & Thanh toán, 2 Điều phối & Vận hành thợ, 3 Giao tiếp (Realtime, AI, CSKH), 4 Tài khoản, Ngôi nhà & Gợi ý. Nhãn Jira `goi-1` … `goi-4`, việc chung `team`. **Điểm** là độ lớn ước lượng.
 - Dòng "Gợi ý người làm: TVx" trong mô tả các ticket cũ đã lỗi thời; **nhãn gói là chuẩn**.
 - ⭐ ticket tạo ngày 23/11 khi đối chiếu code (phần app, hạ tầng dùng chung, M1–M7). 🔎 ticket tạo từ [rà soát nghiệp vụ](review/2026-11-23-ra-soat-nghiep-vu.md).
 - Quy tắc nghiệp vụ mà mọi ticket phải tuân theo: [specs/luong-nghiep-vu.md](specs/luong-nghiep-vu.md).
@@ -19,119 +19,119 @@ Bản chính nằm trên Jira: [se405.atlassian.net, project HC](https://se405.a
 | Mã       | Việc                                                                                 | Epic                                    | Gói  | Điểm | Làm sau                    |
 | -------- | ------------------------------------------------------------------------------------ | --------------------------------------- | ---- | ---- | -------------------------- |
 | HC-13    | ADR-0008: app Expo cho khách và KTV, web cho admin, phạm vi mở rộng                  | Nền tảng & phát hành                    | Nhóm | 2    |                            |
-| HC-14    | Cho điện thoại gọi được API khi dev (tunnel)                                         | Nền tảng & phát hành                    | Nhóm | 3    |                            |
-| HC-15    | Khởi tạo app Expo trong mobile/: Expo Router, NativeWind, đăng nhập, 2 vai trò       | App mobile Expo (khách + kỹ thuật viên) | Lead | 5    |                            |
-| HC-16    | Sửa lỗi khóa tạm đăng nhập: ai cũng khóa được tài khoản người khác 15 phút           | Tài khoản & hồ sơ                       | C    | 3    |                            |
-| HC-17    | Catalog API: /services, /booking-options, /repair-options                            | Catalog, báo giá & booking              | A    | 3    |                            |
-| HC-18    | Booking state machine + lịch sử + audit + outbox                                     | Catalog, báo giá & booking              | A    | 5    |                            |
-| HC-19    | payment-sandbox: nhập thẻ test, OTP 3-D Secure, ký HMAC, IPN                         | Thanh toán kiểu sàn                     | Lead | 8    |                            |
+| HC-14    | Cho điện thoại gọi được API khi dev (tunnel)                                         | Nền tảng & phát hành                    | 3    | 3    |                            |
+| HC-15    | Khởi tạo app Expo trong mobile/: Expo Router, NativeWind, đăng nhập, 2 vai trò       | App mobile Expo (khách + kỹ thuật viên) | 4    | 5    |                            |
+| HC-16    | Sửa lỗi khóa tạm đăng nhập: ai cũng khóa được tài khoản người khác 15 phút           | Tài khoản & hồ sơ                       | 4    | 3    |                            |
+| HC-17    | Catalog API: /services, /booking-options, /repair-options                            | Catalog, báo giá & booking              | 1    | 3    |                            |
+| HC-18    | Booking state machine + lịch sử + audit + outbox                                     | Catalog, báo giá & booking              | 1    | 5    |                            |
 | HC-20    | Gắn tag v0.1.0 và cập nhật checklist team.md                                         | Nền tảng & phát hành                    | Nhóm | 1    |                            |
-| HC-21    | Module profile: địa chỉ có tọa độ (CRUD) và API hồ sơ                                | Tài khoản & hồ sơ                       | C    | 3    |                            |
-| HC-22    | Quên mật khẩu qua email thật + đổi mật khẩu                                          | Tài khoản & hồ sơ                       | C    | 5    |                            |
-| HC-23    | API thiết bị & nhắc bảo trì (/devices, /reminders)                                   | Thiết bị & tem QR                       | C    | 5    |                            |
-| HC-24    | Socket.IO gateway + Redis adapter: xác thực JWT, phòng booking/ticket/user           | Realtime & app thợ                      | B    | 8    |                            |
+| HC-21    | Module profile: địa chỉ có tọa độ (CRUD) và API hồ sơ                                | Tài khoản & hồ sơ                       | 4    | 3    |                            |
+| HC-22    | Quên mật khẩu qua email thật + đổi mật khẩu                                          | Tài khoản & hồ sơ                       | 4    | 5    |                            |
+| HC-23    | API thiết bị & nhắc bảo trì (/devices, /reminders)                                   | Thiết bị & tem QR                       | 4    | 5    |                            |
+| HC-24    | Socket.IO gateway + Redis adapter: xác thực JWT, phòng booking/ticket/user           | Realtime & app thợ                      | 3    | 8    |                            |
 | HC-25    | Điền GitHub username vào .github/CODEOWNERS                                          | Nền tảng & phát hành                    | Nhóm | 1    |                            |
 | HC-26    | Xử lý 3 PR Dependabot (Node 26, nginx 1.29)                                          | Nền tảng & phát hành                    | Nhóm | 1    |                            |
 | HC-27    | Quy ước giao diện app: giống ≥90% prototype                                          | App mobile Expo (khách + kỹ thuật viên) | Nhóm | 2    |                            |
-| HC-28    | Nút gọi hotline trên app                                                             | CSKH & khiếu nại                        | B    | 1    |                            |
-| HC-29    | Báo giá phía server: một công thức cho mọi kênh                                      | Catalog, báo giá & booking              | A    | 5    | HC-17                      |
-| HC-30    | API kỹ thuật viên thật: job = booking được gán                                       | Realtime & app thợ                      | B    | 5    | HC-18                      |
-| HC-31    | Thợ và lịch trống: /technicians, /technician-availability + chống trùng lịch ở DB    | Catalog, báo giá & booking              | A    | 3    | HC-18                      |
-| HC-32    | App khách: hồ sơ, địa chỉ, thiết bị                                                  | App mobile Expo (khách + kỹ thuật viên) | C    | 3    | HC-15, HC-21               |
-| HC-33    | Booking API: tạo (Idempotency-Key), danh sách, chi tiết                              | Catalog, báo giá & booking              | A    | 8    | HC-17, HC-29, HC-18, HC-21 |
-| HC-34    | App thợ: danh sách job, chi tiết, đổi trạng thái                                     | App mobile Expo (khách + kỹ thuật viên) | B    | 3    | HC-15, HC-30               |
-| HC-35    | Thợ đổi trạng thái qua state machine; hoàn thành bắt buộc ảnh, báo cáo không gửi lặp | Realtime & app thợ                      | B    | 3    | HC-30                      |
-| HC-36    | Payments: tạo giao dịch từ booking.total, IPN idempotent, hết hạn 15 phút            | Thanh toán kiểu sàn                     | Lead | 5    | HC-33, HC-19               |
-| HC-37    | App khách: luồng đặt lịch (gộp Vệ sinh, Sửa chữa, Đặt lịch)                          | App mobile Expo (khách + kỹ thuật viên) | A    | 5    | HC-15, HC-33               |
-| HC-38    | App khách: thanh toán qua payment-sandbox và deep link quay về app                   | App mobile Expo (khách + kỹ thuật viên) | Lead | 3    | HC-15, HC-36               |
-| HC-39    | Release v0.2.0: PR dev → main + tag                                                  | Nền tảng & phát hành                    | Nhóm | 1    |                            |
-| HC-46    | App: đăng nhập lại bằng vân tay / Face ID                                            | Tài khoản & hồ sơ                       | C    | 3    | HC-15                      |
-| HC-86 ⭐ | Worker: hàng đợi job dùng chung (BullMQ) cho hết hạn, hẹn giờ, job định kỳ           | Nền tảng & phát hành                    | B    | 2    |                            |
-| HC-87 ⭐ | Mobile: socket client dùng chung (kết nối, xác thực, tự nối lại)                     | App mobile Expo (khách + kỹ thuật viên) | B    | 1    | HC-24, HC-15               |
-| HC-88 ⭐ | M6 · App: đăng ký tài khoản khách                                                    | App mobile Expo (khách + kỹ thuật viên) | C    | 2    | HC-15                      |
-| HC-89 ⭐ | App: màn quên mật khẩu, đặt lại mật khẩu và đổi mật khẩu                             | App mobile Expo (khách + kỹ thuật viên) | C    | 2    | HC-22, HC-15               |
-| HC-90 ⭐ | App thợ: tab Tổng quan, Hồ sơ và nút bật/tắt nhận việc                               | App mobile Expo (khách + kỹ thuật viên) | B    | 2    | HC-30, HC-34               |
+| HC-28    | Nút gọi hotline trên app                                                             | CSKH & khiếu nại                        | 3    | 1    |                            |
+| HC-29    | Báo giá phía server: một công thức cho mọi kênh                                      | Catalog, báo giá & booking              | 1    | 5    | HC-17                      |
+| HC-30    | API kỹ thuật viên thật: job = booking được gán                                       | Realtime & app thợ                      | 2    | 5    | HC-18                      |
+| HC-31    | Thợ và lịch trống: /technicians, /technician-availability + chống trùng lịch ở DB    | Catalog, báo giá & booking              | 2    | 3    | HC-18                      |
+| HC-32    | App khách: hồ sơ, địa chỉ, thiết bị                                                  | App mobile Expo (khách + kỹ thuật viên) | 4    | 3    | HC-15, HC-21               |
+| HC-33    | Booking API: tạo (Idempotency-Key), danh sách, chi tiết                              | Catalog, báo giá & booking              | 1    | 8    | HC-17, HC-29, HC-18, HC-21 |
+| HC-34    | App thợ: danh sách job, chi tiết, đổi trạng thái                                     | App mobile Expo (khách + kỹ thuật viên) | 2    | 3    | HC-15, HC-30               |
+| HC-35    | Thợ đổi trạng thái qua state machine; hoàn thành bắt buộc ảnh, báo cáo không gửi lặp | Realtime & app thợ                      | 2    | 3    | HC-30                      |
+| HC-37    | App khách: luồng đặt lịch (gộp Vệ sinh, Sửa chữa, Đặt lịch)                          | App mobile Expo (khách + kỹ thuật viên) | 1    | 5    | HC-15, HC-33               |
+| HC-39    | Release v0.2.0: PR dev → main + tag                                                  | Nền tảng & phát hành                    | 1    | 1    |                            |
+| HC-44    | Thông báo in-app + push (Expo) + email từ sự kiện outbox                             | Realtime & app thợ                      | 3    | 5    | HC-24                      |
+| HC-45    | Chat khách–thợ theo booking, ẩn số điện thoại                                        | CSKH & khiếu nại                        | 3    | 5    | HC-24                      |
+| HC-54    | App thợ: chụp ảnh trước/sau và gửi báo cáo hoàn thành                                | App mobile Expo (khách + kỹ thuật viên) | 2    | 2    | HC-34                      |
+| HC-72    | Ảnh trước/sau lên MinIO (presigned URL), server kiểm tra ảnh tồn tại                 | Realtime & app thợ                      | 2    | 5    | HC-35                      |
+| HC-86 ⭐ | Worker: hàng đợi job dùng chung (BullMQ) cho hết hạn, hẹn giờ, job định kỳ           | Nền tảng & phát hành                    | 1    | 2    |                            |
+| HC-87 ⭐ | Mobile: socket client dùng chung (kết nối, xác thực, tự nối lại)                     | App mobile Expo (khách + kỹ thuật viên) | 3    | 1    | HC-24, HC-15               |
+| HC-88 ⭐ | M6 · App: đăng ký tài khoản khách                                                    | App mobile Expo (khách + kỹ thuật viên) | 4    | 2    | HC-15                      |
+| HC-89 ⭐ | App: màn quên mật khẩu, đặt lại mật khẩu và đổi mật khẩu                             | App mobile Expo (khách + kỹ thuật viên) | 4    | 2    | HC-22, HC-15               |
+| HC-90 ⭐ | App thợ: tab Tổng quan, Hồ sơ và nút bật/tắt nhận việc                               | App mobile Expo (khách + kỹ thuật viên) | 2    | 2    | HC-30, HC-34               |
 
 ## Đợt 2
 
-| Mã        | Việc                                                                                           | Epic                                    | Gói  | Điểm | Làm sau       |
-| --------- | ---------------------------------------------------------------------------------------------- | --------------------------------------- | ---- | ---- | ------------- |
-| HC-40     | Server staging có tên miền + HTTPS, nạp secret, bật CD                                         | Nền tảng & phát hành                    | Nhóm | 5    |               |
-| HC-41     | Seed lịch sử đặt lịch giả khắp TP.HCM                                                          | Điều phối & gợi ý theo ngữ cảnh         | A    | 2    |               |
-| HC-43     | Gợi ý theo ngữ cảnh, có lý do: vị trí, thời tiết, thiết bị, lịch sử, xu hướng khu vực, thợ gần | Điều phối & gợi ý theo ngữ cảnh         | A    | 5    | HC-41, HC-23  |
-| HC-44     | Thông báo in-app + push (Expo) + email từ sự kiện outbox                                       | Realtime & app thợ                      | B    | 5    | HC-24         |
-| HC-45     | Chat khách–thợ theo booking, ẩn số điện thoại                                                  | CSKH & khiếu nại                        | B    | 5    | HC-24         |
-| HC-47     | Vị trí thợ: chỉ thợ được gán, throttle, chống GPS giả, ETA, lưu mẫu 30 giây                    | Realtime & app thợ                      | B    | 5    | HC-24, HC-30  |
-| HC-49     | App khách: theo dõi thợ trên bản đồ live + ETA + timeline                                      | App mobile Expo (khách + kỹ thuật viên) | B    | 3    | HC-47         |
-| HC-50     | Tem QR thiết bị: token, model/serial, gắn booking với thiết bị                                 | Thiết bị & tem QR                       | C    | 5    | HC-23, HC-33  |
-| HC-51     | Điều phối tự gán thợ: điểm theo khoảng cách, kỹ năng, điểm đánh giá, tải việc                  | Điều phối & gợi ý theo ngữ cảnh         | A    | 5    | HC-33, HC-31  |
-| HC-53     | Module assistant: agent đặt lịch bằng chat (Claude + công cụ)                                  | AI agent & MCP                          | Lead | 8    | HC-33         |
-| HC-54     | App thợ: chụp ảnh trước/sau và gửi báo cáo hoàn thành                                          | App mobile Expo (khách + kỹ thuật viên) | B    | 2    | HC-34         |
-| HC-55     | App: quét tem QR (khách xem lịch sử, đặt lại; thợ đăng ký thiết bị lần đầu)                    | Thiết bị & tem QR                       | C    | 3    | HC-50, HC-15  |
-| HC-56     | Offer có hạn: thợ nhận/từ chối, hết hạn thì chuyển người kế (BullMQ)                           | Điều phối & gợi ý theo ngữ cảnh         | A    | 5    | HC-51         |
-| HC-57     | Thu nhập KTV: chờ 24 giờ rồi khả dụng, giữ lại khi có khiếu nại                                | Thanh toán kiểu sàn                     | Lead | 3    | HC-36, HC-35  |
-| HC-58     | App: màn chat với thẻ dịch vụ, ô chọn giờ, nút xác nhận                                        | AI agent & MCP                          | Lead | 3    | HC-53, HC-15  |
-| HC-59     | Module support: ticket + chat hỗ trợ realtime, bot trả lời trước, chuyển nhân viên             | CSKH & khiếu nại                        | C    | 5    | HC-24         |
-| HC-60     | Admin › Điều phối: booking chờ gán, gán tay thợ                                                | Admin console (web)                     | A    | 5    | HC-51         |
-| HC-61     | Admin › Đối soát: giao dịch, IPN, hoàn tiền                                                    | Admin console (web)                     | Lead | 3    | HC-36         |
-| HC-62     | Hoàn tiền: khi hủy (theo thời điểm) và theo kết quả khiếu nại                                  | Thanh toán kiểu sàn                     | Lead | 3    | HC-57         |
-| HC-63     | Khiếu nại gắn booking: loại, ảnh, trạng thái, SLA, cách xử lý                                  | CSKH & khiếu nại                        | C    | 5    | HC-59, HC-57  |
-| HC-64     | Release v0.3.0: PR dev → main + tag                                                            | Nền tảng & phát hành                    | Nhóm | 1    |               |
-| HC-72     | Ảnh trước/sau lên MinIO (presigned URL), server kiểm tra ảnh tồn tại                           | Realtime & app thợ                      | B    | 5    | HC-35         |
-| HC-91 ⭐  | App khách: Lịch của tôi (danh sách, chi tiết, hủy/đổi lịch, xác nhận hoàn thành)               | App mobile Expo (khách + kỹ thuật viên) | A    | 3    | HC-33, HC-37  |
-| HC-92 ⭐  | App thợ: gửi vị trí GPS chạy nền, tự chỉnh tần suất theo tốc độ và pin                         | App mobile Expo (khách + kỹ thuật viên) | B    | 3    | HC-47, HC-34  |
-| HC-93 ⭐  | App: thông báo (xin quyền push, đăng ký token, màn Chuông, tùy chọn thông báo)                 | App mobile Expo (khách + kỹ thuật viên) | C    | 3    | HC-44, HC-15  |
-| HC-94 ⭐  | App: màn chat khách–thợ cho cả hai phía                                                        | App mobile Expo (khách + kỹ thuật viên) | Lead | 3    | HC-45, HC-58  |
-| HC-95 ⭐  | M1 · Bot hỗ trợ: tra đơn, RAG chính sách có trích nguồn, chuyển nhân viên                      | AI agent & MCP                          | Lead | 5    | HC-53         |
-| HC-96 ⭐  | M3 · [Nếu kịp] Chatbot: nhập bằng giọng nói                                                    | AI agent & MCP                          | Lead | 2    | HC-58         |
-| HC-98 ⭐  | M5 · Trang chủ app khách + API tổng quan                                                       | App mobile Expo (khách + kỹ thuật viên) | C    | 5    | HC-15         |
-| HC-99 ⭐  | M7 · App khách: chat hỗ trợ và mở khiếu nại                                                    | App mobile Expo (khách + kỹ thuật viên) | C    | 3    | HC-59, HC-63  |
-| HC-102 🔎 | Báo giá tại chỗ cho sửa chữa: hạng mục có khung giá, khách duyệt trên app                      | Catalog, báo giá & booking              | A    | 5    | HC-18, HC-29  |
-| HC-104 🔎 | App thợ: đề xuất báo giá tại chỗ và báo khách vắng                                             | App mobile Expo (khách + kỹ thuật viên) | B    | 2    | HC-102, HC-34 |
-| HC-105 🔎 | Thanh toán tiền mặt: KTV ghi đã thu, khách xác nhận, lệch thì mở khiếu nại                     | Thanh toán kiểu sàn                     | Lead | 2    | HC-36, HC-35  |
+| Mã        | Việc                                                                                           | Epic                                    | Gói | Điểm | Làm sau       |
+| --------- | ---------------------------------------------------------------------------------------------- | --------------------------------------- | --- | ---- | ------------- |
+| HC-19     | payment-sandbox: nhập thẻ test, OTP 3-D Secure, ký HMAC, IPN                                   | Thanh toán kiểu sàn                     | 1   | 8    |               |
+| HC-36     | Payments: tạo giao dịch từ booking.total, IPN idempotent, hết hạn 15 phút                      | Thanh toán kiểu sàn                     | 1   | 5    | HC-33, HC-19  |
+| HC-38     | App khách: thanh toán qua payment-sandbox và deep link quay về app                             | App mobile Expo (khách + kỹ thuật viên) | 1   | 3    | HC-15, HC-36  |
+| HC-40     | Server staging có tên miền + HTTPS, nạp secret, bật CD                                         | Nền tảng & phát hành                    | 1   | 5    |               |
+| HC-41     | Seed lịch sử đặt lịch giả khắp TP.HCM                                                          | Điều phối & gợi ý theo ngữ cảnh         | 4   | 2    |               |
+| HC-43     | Gợi ý theo ngữ cảnh, có lý do: vị trí, thời tiết, thiết bị, lịch sử, xu hướng khu vực, thợ gần | Điều phối & gợi ý theo ngữ cảnh         | 4   | 5    | HC-41, HC-23  |
+| HC-46     | App: đăng nhập lại bằng vân tay / Face ID                                                      | Tài khoản & hồ sơ                       | 4   | 3    | HC-15         |
+| HC-47     | Vị trí thợ: chỉ thợ được gán, throttle, chống GPS giả, ETA, lưu mẫu 30 giây                    | Realtime & app thợ                      | 2   | 5    | HC-24, HC-30  |
+| HC-49     | App khách: theo dõi thợ trên bản đồ live + ETA + timeline                                      | App mobile Expo (khách + kỹ thuật viên) | 2   | 3    | HC-47         |
+| HC-50     | Tem QR thiết bị: token, model/serial, gắn booking với thiết bị                                 | Thiết bị & tem QR                       | 4   | 5    | HC-23, HC-33  |
+| HC-51     | Điều phối tự gán thợ: điểm theo khoảng cách, kỹ năng, điểm đánh giá, tải việc                  | Điều phối & gợi ý theo ngữ cảnh         | 2   | 5    | HC-33, HC-31  |
+| HC-53     | Module assistant: agent đặt lịch bằng chat (Claude + công cụ)                                  | AI agent & MCP                          | 3   | 8    | HC-33         |
+| HC-55     | App: quét tem QR (khách xem lịch sử, đặt lại; thợ đăng ký thiết bị lần đầu)                    | Thiết bị & tem QR                       | 4   | 3    | HC-50, HC-15  |
+| HC-56     | Offer có hạn: thợ nhận/từ chối, hết hạn thì chuyển người kế (BullMQ)                           | Điều phối & gợi ý theo ngữ cảnh         | 2   | 5    | HC-51         |
+| HC-57     | Thu nhập KTV: chờ 24 giờ rồi khả dụng, giữ lại khi có khiếu nại                                | Thanh toán kiểu sàn                     | 1   | 3    | HC-36, HC-35  |
+| HC-58     | App: màn chat với thẻ dịch vụ, ô chọn giờ, nút xác nhận                                        | AI agent & MCP                          | 3   | 3    | HC-53, HC-15  |
+| HC-59     | Module support: ticket + chat hỗ trợ realtime, bot trả lời trước, chuyển nhân viên             | CSKH & khiếu nại                        | 3   | 5    | HC-24         |
+| HC-61     | Admin › Đối soát: giao dịch, IPN, hoàn tiền                                                    | Admin console (web)                     | 4   | 3    | HC-36         |
+| HC-64     | Release v0.3.0: PR dev → main + tag                                                            | Nền tảng & phát hành                    | 1   | 1    |               |
+| HC-91 ⭐  | App khách: Lịch của tôi (danh sách, chi tiết, hủy/đổi lịch, xác nhận hoàn thành)               | App mobile Expo (khách + kỹ thuật viên) | 1   | 3    | HC-33, HC-37  |
+| HC-92 ⭐  | App thợ: gửi vị trí GPS chạy nền, tự chỉnh tần suất theo tốc độ và pin                         | App mobile Expo (khách + kỹ thuật viên) | 2   | 3    | HC-47, HC-34  |
+| HC-93 ⭐  | App: thông báo (xin quyền push, đăng ký token, màn Chuông, tùy chọn thông báo)                 | App mobile Expo (khách + kỹ thuật viên) | 3   | 3    | HC-44, HC-15  |
+| HC-94 ⭐  | App: màn chat khách–thợ cho cả hai phía                                                        | App mobile Expo (khách + kỹ thuật viên) | 3   | 3    | HC-45, HC-58  |
+| HC-95 ⭐  | M1 · Bot hỗ trợ: tra đơn, RAG chính sách có trích nguồn, chuyển nhân viên                      | AI agent & MCP                          | 3   | 5    | HC-53         |
+| HC-96 ⭐  | M3 · [Nếu kịp] Chatbot: nhập bằng giọng nói                                                    | AI agent & MCP                          | 3   | 2    | HC-58         |
+| HC-98 ⭐  | M5 · Trang chủ app khách + API tổng quan                                                       | App mobile Expo (khách + kỹ thuật viên) | 4   | 5    | HC-15         |
+| HC-102 🔎 | Báo giá tại chỗ cho sửa chữa: hạng mục có khung giá, khách duyệt trên app                      | Catalog, báo giá & booking              | 2   | 5    | HC-18, HC-29  |
+| HC-104 🔎 | App thợ: đề xuất báo giá tại chỗ và báo khách vắng                                             | App mobile Expo (khách + kỹ thuật viên) | 2   | 2    | HC-102, HC-34 |
+| HC-105 🔎 | Thanh toán tiền mặt: KTV ghi đã thu, khách xác nhận, lệch thì mở khiếu nại                     | Thanh toán kiểu sàn                     | 1   | 2    | HC-36, HC-35  |
 
 ## Đợt 3
 
 | Mã        | Việc                                                                        | Epic                                    | Gói  | Điểm | Làm sau                    |
 | --------- | --------------------------------------------------------------------------- | --------------------------------------- | ---- | ---- | -------------------------- |
-| HC-42     | Admin › Kỹ thuật viên: tạo tài khoản mã TECH, kỹ năng, khu vực              | Admin console (web)                     | B    | 3    |                            |
-| HC-48     | Push gợi ý chủ động                                                         | Điều phối & gợi ý theo ngữ cảnh         | A    | 3    | HC-43, HC-44               |
-| HC-52     | Geofence: thợ vào bán kính 100 m thì tự báo "đã đến"                        | Realtime & app thợ                      | B    | 3    | HC-47, HC-92               |
+| HC-42     | Admin › Kỹ thuật viên: tạo tài khoản mã TECH, kỹ năng, khu vực              | Admin console (web)                     | 4    | 3    |                            |
+| HC-48     | Push gợi ý chủ động                                                         | Điều phối & gợi ý theo ngữ cảnh         | 4    | 3    | HC-43, HC-44               |
+| HC-52     | Geofence: thợ vào bán kính 100 m thì tự báo "đã đến"                        | Realtime & app thợ                      | 2    | 3    | HC-47, HC-92               |
+| HC-60     | Admin › Điều phối: booking chờ gán, gán tay thợ                             | Admin console (web)                     | 2    | 5    | HC-51                      |
+| HC-62     | Hoàn tiền: khi hủy (theo thời điểm) và theo kết quả khiếu nại               | Thanh toán kiểu sàn                     | 1    | 3    | HC-57                      |
+| HC-63     | Khiếu nại gắn booking: loại, ảnh, trạng thái, SLA, cách xử lý               | CSKH & khiếu nại                        | 3    | 5    | HC-59, HC-57               |
 | HC-65     | Kịch bản demo + video dự phòng                                              | Kiểm thử, demo & báo cáo                | Nhóm | 2    |                            |
 | HC-66     | Báo cáo đồ án + slide bảo vệ                                                | Kiểm thử, demo & báo cáo                | Nhóm | 8    |                            |
-| HC-67     | Simulator thợ chạy theo lộ trình để demo                                    | Realtime & app thợ                      | B    | 3    |                            |
-| HC-68     | Đo tải k6 + ảnh Grafana khi scale 1 → 3 → 5 replica                         | Kiểm thử, demo & báo cáo                | Nhóm | 3    |                            |
-| HC-69     | Admin › Audit log: xem và lọc                                               | Admin console (web)                     | C    | 2    |                            |
-| HC-70     | Job định kỳ tạo nhắc bảo trì theo chu kỳ từng loại thiết bị                 | Thiết bị & tem QR                       | C    | 3    | HC-23                      |
-| HC-71     | Khách hủy và đổi lịch theo chính sách                                       | Catalog, báo giá & booking              | A    | 3    | HC-33                      |
+| HC-67     | Simulator thợ chạy theo lộ trình để demo                                    | Realtime & app thợ                      | 2    | 3    |                            |
+| HC-68     | Đo tải k6 + ảnh Grafana khi scale 1 → 3 → 5 replica                         | Kiểm thử, demo & báo cáo                | 2    | 3    |                            |
+| HC-69     | Admin › Audit log: xem và lọc                                               | Admin console (web)                     | 4    | 2    |                            |
+| HC-70     | Job định kỳ tạo nhắc bảo trì theo chu kỳ từng loại thiết bị                 | Thiết bị & tem QR                       | 4    | 3    | HC-23                      |
+| HC-71     | Khách hủy và đổi lịch theo chính sách                                       | Catalog, báo giá & booking              | 1    | 3    | HC-33                      |
 | HC-73     | Gỡ toàn bộ mock, chạy web với VITE_USE_MOCKS=false                          | Kiểm thử, demo & báo cáo                | Nhóm | 2    | HC-33, HC-36, HC-23, HC-21 |
-| HC-74     | [Nếu kịp] Lưu thẻ dạng token, thanh toán 1 chạm xác nhận bằng sinh trắc     | Thanh toán kiểu sàn                     | Lead | 3    | HC-36                      |
-| HC-75     | MCP server mở cùng bộ công cụ, demo bằng Claude Desktop                     | AI agent & MCP                          | Lead | 5    | HC-53                      |
-| HC-76     | E2E luồng chính: đặt → giữ tiền → gán thợ → theo dõi → xác nhận → giải ngân | Kiểm thử, demo & báo cáo                | A    | 5    | HC-57, HC-51, HC-47        |
-| HC-77     | Sổ cái KTV: hoa hồng, nợ tiền mặt, hạn mức, thu hồi, chi trả                | Thanh toán kiểu sàn                     | Lead | 5    | HC-57                      |
-| HC-78     | Admin › Hỗ trợ: hàng đợi ticket, chat, ghi chú nội bộ, xử lý khiếu nại      | Admin console (web)                     | C    | 3    | HC-59                      |
-| HC-79     | [Nếu kịp] Admin: bản đồ nhiệt nhu cầu theo khu vực và khung giờ             | Điều phối & gợi ý theo ngữ cảnh         | A    | 3    |                            |
-| HC-80     | [Nếu kịp] VietQR trong sandbox                                              | Thanh toán kiểu sàn                     | Lead | 3    |                            |
-| HC-81     | [Nếu kịp] Thợ cập nhật job khi offline, tự đồng bộ khi có mạng              | Realtime & app thợ                      | B    | 3    |                            |
-| HC-82     | [Nếu kịp] Gọi thoại trong app bằng WebRTC                                   | CSKH & khiếu nại                        | B    | 5    |                            |
-| HC-83     | [Nếu kịp] Admin › Bản đồ realtime vị trí thợ                                | Admin console (web)                     | B    | 3    |                            |
-| HC-84     | [Nếu kịp] Multi-agent: điều phối + agent hỗ trợ trả lời chính sách (RAG)    | AI agent & MCP                          | Lead | 3    | HC-53                      |
-| HC-85     | Release v1.0.0: PR dev → main + tag                                         | Nền tảng & phát hành                    | Nhóm | 1    |                            |
-| HC-97 ⭐  | M4 · Push cho thợ có nút Nhận/Từ chối                                       | Realtime & app thợ                      | B    | 2    | HC-44                      |
-| HC-100 ⭐ | M2 · App thợ: màn thu nhập (đã trừ hoa hồng)                                | App mobile Expo (khách + kỹ thuật viên) | Lead | 3    | HC-77                      |
-| HC-101 ⭐ | [Nếu kịp] Khách đánh giá thợ sau khi hoàn thành, cập nhật điểm thợ          | Điều phối & gợi ý theo ngữ cảnh         | A    | 3    | HC-57                      |
-| HC-103 🔎 | Đặt lại thợ quen: khách chọn lại KTV đã từng phục vụ mình                   | Điều phối & gợi ý theo ngữ cảnh         | A    | 2    | HC-51, HC-91               |
-| HC-106 🔎 | Nợ của khách: chưa thanh toán sau 24 giờ, phí hủy muộn, chặn đặt lịch mới   | Thanh toán kiểu sàn                     | Lead | 2    | HC-105, HC-71              |
-| HC-107 🔎 | KTV nạp tiền trả nợ hoa hồng; tạm ngưng và khôi phục nhận việc theo hạn mức | Thanh toán kiểu sàn                     | Lead | 2    | HC-77, HC-19               |
+| HC-74     | [Nếu kịp] Lưu thẻ dạng token, thanh toán 1 chạm xác nhận bằng sinh trắc     | Thanh toán kiểu sàn                     | 1    | 3    | HC-36                      |
+| HC-75     | MCP server mở cùng bộ công cụ, demo bằng Claude Desktop                     | AI agent & MCP                          | 3    | 5    | HC-53                      |
+| HC-76     | E2E luồng chính: đặt → giữ tiền → gán thợ → theo dõi → xác nhận → giải ngân | Kiểm thử, demo & báo cáo                | 4    | 5    | HC-57, HC-51, HC-47        |
+| HC-77     | Sổ cái KTV: hoa hồng, nợ tiền mặt, hạn mức, thu hồi, chi trả                | Thanh toán kiểu sàn                     | 1    | 5    | HC-57                      |
+| HC-78     | Admin › Hỗ trợ: hàng đợi ticket, chat, ghi chú nội bộ, xử lý khiếu nại      | Admin console (web)                     | 3    | 3    | HC-59                      |
+| HC-79     | [Nếu kịp] Admin: bản đồ nhiệt nhu cầu theo khu vực và khung giờ             | Điều phối & gợi ý theo ngữ cảnh         | 4    | 3    |                            |
+| HC-80     | [Nếu kịp] VietQR trong sandbox                                              | Thanh toán kiểu sàn                     | 1    | 3    |                            |
+| HC-81     | [Nếu kịp] Thợ cập nhật job khi offline, tự đồng bộ khi có mạng              | Realtime & app thợ                      | 2    | 3    |                            |
+| HC-82     | [Nếu kịp] Gọi thoại trong app bằng WebRTC                                   | CSKH & khiếu nại                        | 3    | 5    |                            |
+| HC-83     | [Nếu kịp] Admin › Bản đồ realtime vị trí thợ                                | Admin console (web)                     | 2    | 3    |                            |
+| HC-84     | [Nếu kịp] Multi-agent: điều phối + agent hỗ trợ trả lời chính sách (RAG)    | AI agent & MCP                          | 3    | 3    | HC-53                      |
+| HC-85     | Release v1.0.0: PR dev → main + tag                                         | Nền tảng & phát hành                    | 1    | 1    |                            |
+| HC-97 ⭐  | M4 · Push cho thợ có nút Nhận/Từ chối                                       | Realtime & app thợ                      | 3    | 2    | HC-44                      |
+| HC-99 ⭐  | M7 · App khách: chat hỗ trợ và mở khiếu nại                                 | App mobile Expo (khách + kỹ thuật viên) | 3    | 3    | HC-59, HC-63               |
+| HC-100 ⭐ | M2 · App thợ: màn thu nhập (đã trừ hoa hồng)                                | App mobile Expo (khách + kỹ thuật viên) | 2    | 3    | HC-77                      |
+| HC-101 ⭐ | [Nếu kịp] Khách đánh giá thợ sau khi hoàn thành, cập nhật điểm thợ          | Điều phối & gợi ý theo ngữ cảnh         | 2    | 3    | HC-57                      |
+| HC-103 🔎 | Đặt lại thợ quen: khách chọn lại KTV đã từng phục vụ mình                   | Điều phối & gợi ý theo ngữ cảnh         | 2    | 2    | HC-51, HC-91               |
+| HC-106 🔎 | Nợ của khách: chưa thanh toán sau 24 giờ, phí hủy muộn, chặn đặt lịch mới   | Thanh toán kiểu sàn                     | 1    | 2    | HC-105, HC-71              |
+| HC-107 🔎 | KTV nạp tiền trả nợ hoa hồng; tạm ngưng và khôi phục nhận việc theo hạn mức | Thanh toán kiểu sàn                     | 1    | 2    | HC-77, HC-19               |
 
 ## Tổng điểm theo gói
 
-Không tính việc [Nếu kịp].
+Không tính việc [Nếu kịp] và việc đã xong.
 
 | Gói  | Đợt 1 | Đợt 2 | Đợt 3 | Tổng |
 | ---- | ----- | ----- | ----- | ---- |
-| Lead | 21    | 30    | 17    | 68   |
-| A    | 29    | 30    | 13    | 72   |
-| B    | 25    | 30    | 11    | 66   |
-| C    | 26    | 29    | 8     | 63   |
-| Nhóm | 11    | 6     | 16    | 33   |
+| 1    | 29    | 30    | 16    | 75   |
+| 2    | 23    | 28    | 19    | 70   |
+| 3    | 23    | 27    | 18    | 68   |
+| 4    | 28    | 26    | 16    | 70   |
+| Nhóm | 6     | 0     | 12    | 18   |
