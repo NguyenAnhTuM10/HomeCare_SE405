@@ -13,7 +13,7 @@ pnpm monorepo (Node ≥ 22, pnpm 10 via corepack):
 | `backend/prisma/schema/*.prisma` | Prisma 7 schema, **one file per module** (owner in header)                                                                                                                                      |
 | `frontend`                       | React 19 + Vite + Tailwind **3.4.19** + lucide-react **1.71.0** (both pinned to the prototype's versions) + TanStack Query + react-router 7. Mock API for business data in `frontend/src/mocks` |
 | `mobile`                         | Expo SDK 58 app for customers + technicians: Expo Router (`src/app`), NativeWind 4.2.7 on Tailwind 3.4.19 (same classes as the prototype), lucide-react-native 1.71.0. See `mobile/README.md`   |
-| `payment-sandbox`                | Mock VNPay gateway (to be created by TV3, see ADR-0003)                                                                                                                                         |
+| `payment-sandbox`                | Mock VNPay gateway (package 1, see ADR-0003 and ADR-0009)                                                                                                                                       |
 | `packages/shared`                | zod schemas, enums, error codes, socket events — the contract between server and clients                                                                                                        |
 | `infra/`                         | docker compose (dev deps; full LB stack), Nginx, Prometheus/Grafana                                                                                                                             |
 | `docs/`                          | `architecture/system-design.md`, `adr/`, `specs/`, `team.md`                                                                                                                                    |
@@ -58,7 +58,7 @@ Reference implementation for all of the above: `backend/src/modules/identity` + 
 
 ## Team ownership
 
-Work is split into packages, each owned end to end (API, DB, app/web screens, tests): Lead = payments + AI assistant, A = catalog/booking/dispatch/recommendation, B = realtime/technician/tracking/notifications, C = identity/profile/devices/support. See `docs/phan-cong.md`. Shared kernel changes need two reviewers.
+Work is split by business flow (since 2026-11-28), each package owned end to end (API, DB, app/web screens, tests): 1 = booking + payments + CI/CD (catalog, booking, payments, payment-sandbox, job queue), 2 = dispatch + technician operations (dispatch, technician, tracking, photo storage), 3 = communication (realtime, notifications, support, assistant/AI), 4 = account, home and recommendations (identity, profile, devices/QR, recommendation, mobile shell). Each module has exactly one owning package. See `docs/phan-cong.md`; business rules in `docs/specs/luong-nghiep-vu.md`. Shared kernel changes need two reviewers.
 
 ## How to work here (installed plugins + project skills)
 

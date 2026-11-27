@@ -8,14 +8,14 @@ Cách đọc: **Mức** Cao = có thể mất tiền, rò dữ liệu cá nhân 
 
 ## 1. Tổng quan theo lĩnh vực
 
-| Lĩnh vực                          | Cao | Trung bình | Thấp | Gói  |
-| --------------------------------- | --- | ---------- | ---- | ---- |
-| Thanh toán, sổ cái, hoàn tiền     | 6   | 2          | 1    | Lead |
-| Giá, đặt lịch, hủy, điều phối     | 3   | 7          | 1    | A    |
-| KTV, vị trí, bằng chứng, chat     | 3   | 3          | 1    | B    |
-| Tài khoản, hồ sơ, CSKH, khiếu nại | 1   | 3          | 2    | C    |
-| Trợ lý AI                         | 0   | 1          | 1    | Lead |
-| **Tổng**                          | 13  | 16         | 6    |      |
+| Lĩnh vực                          | Cao | Trung bình | Thấp | Gói (cách chia 28/11) |
+| --------------------------------- | --- | ---------- | ---- | --------------------- |
+| Thanh toán, sổ cái, hoàn tiền     | 6   | 2          | 1    | 1                     |
+| Giá, đặt lịch, hủy, điều phối     | 3   | 7          | 1    | 1, 2                  |
+| KTV, vị trí, bằng chứng, chat     | 3   | 3          | 1    | 2, 3                  |
+| Tài khoản, hồ sơ, CSKH, khiếu nại | 1   | 3          | 2    | 4, 3                  |
+| Trợ lý AI                         | 0   | 1          | 1    | 3                     |
+| **Tổng**                          | 13  | 16         | 6    |                       |
 
 ## 2. Thay đổi thiết kế lớn
 
@@ -38,7 +38,7 @@ Cách đọc: **Mức** Cao = có thể mất tiền, rò dữ liệu cá nhân 
 
 ## 3. Danh sách phát hiện
 
-### 3.1 Thanh toán, sổ cái, hoàn tiền (Lead)
+### 3.1 Thanh toán, sổ cái, hoàn tiền (gói 1)
 
 | ID    | Mức  | Phát hiện                                                                                   | Tác động                                                            | Giải pháp                                                                                                                                                         | Ticket       |
 | ----- | ---- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
@@ -52,7 +52,7 @@ Cách đọc: **Mức** Cao = có thể mất tiền, rò dữ liệu cá nhân 
 | PAY-8 | TB   | Chưa có quy trình chi trả cho KTV                                                           | Không biết thu nhập "khả dụng" đi đâu                               | Đợt chi trả hằng tuần; admin đánh dấu đã chuyển; không chi khoản đang chờ hoặc đang bị giữ                                                                        | HC-61, HC-77 |
 | PAY-9 | Thấp | Lưu thẻ và trả một chạm (HC-74) không phục vụ luồng chính                                   | Tốn thời gian của gói đang nặng                                     | Hạ xuống "nếu kịp"                                                                                                                                                | HC-74        |
 
-### 3.2 Giá, đặt lịch, hủy, điều phối (A)
+### 3.2 Giá, đặt lịch, hủy, điều phối (gói 1, gói 2)
 
 | ID     | Mức  | Phát hiện                                                                                       | Tác động                                                                   | Giải pháp                                                                                                                                                | Ticket         |
 | ------ | ---- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
@@ -68,7 +68,7 @@ Cách đọc: **Mức** Cao = có thể mất tiền, rò dữ liệu cá nhân 
 | BKG-10 | TB   | Điều phối có thể chọn KTV đang nợ quá hạn mức, đang tạm ngưng, hoặc có vị trí bị gắn cờ GPS giả | Giao việc cho người không được phép nhận                                   | Bộ lọc điều phối loại các KTV đó; dùng khu vực đăng ký khi vị trí không tin cậy                                                                          | HC-51          |
 | BKG-11 | Thấp | Khách được chọn KTV tự do từ danh sách                                                          | Lộ danh sách KTV; dễ bị dùng để tìm người làm ngoài                        | Chỉ cho chọn lại **KTV đã từng phục vụ mình** ("Đặt lại thợ quen"); còn lại để hệ thống gán                                                              | HC-103         |
 
-### 3.3 KTV, vị trí, bằng chứng, chat (B)
+### 3.3 KTV, vị trí, bằng chứng, chat (gói 2, gói 3)
 
 | ID    | Mức  | Phát hiện                                                                       | Tác động                                       | Giải pháp                                                                                                                       | Ticket       |
 | ----- | ---- | ------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------ |
@@ -80,7 +80,7 @@ Cách đọc: **Mức** Cao = có thể mất tiền, rò dữ liệu cá nhân 
 | TEC-6 | TB   | Hoàn thành job khi chưa có trạng thái "đã đến" hoặc chưa có giá cuối được duyệt | Rút ngắn quy trình, bỏ qua kiểm soát           | State machine: `IN_PROGRESS` chỉ sau `ARRIVED`; báo xong cần đủ ảnh và (với sửa chữa) báo giá đã duyệt                          | HC-18, HC-35 |
 | TEC-7 | Thấp | Đồng bộ ngoại tuyến (HC-81) có thể gửi lại thao tác với thời gian lùi           | Né thời hạn offer, làm sai lịch sử             | Server tự gán thời gian nhận và kiểm tra lại trạng thái; không tin thời gian client cho các mốc tiền                            | HC-81        |
 
-### 3.4 Tài khoản, hồ sơ, CSKH, khiếu nại (C)
+### 3.4 Tài khoản, hồ sơ, CSKH, khiếu nại (gói 4, gói 3)
 
 | ID    | Mức  | Phát hiện                                                                              | Tác động                                              | Giải pháp                                                                                                                               | Ticket        |
 | ----- | ---- | -------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
@@ -91,7 +91,7 @@ Cách đọc: **Mức** Cao = có thể mất tiền, rò dữ liệu cá nhân 
 | ACC-5 | Thấp | "Điểm sức khỏe" thiết bị do khách tự nhập                                              | Gợi ý dựa trên số liệu không đáng tin                 | Tính ở server từ lần bảo trì gần nhất và chu kỳ của loại thiết bị                                                                       | HC-23         |
 | ACC-6 | Thấp | Một người có thể vừa là khách vừa là KTV để tự đặt, tự làm (nâng điểm, lấy khuyến mãi) | Gian lận điểm đánh giá và voucher người mới           | Email, SĐT không dùng chung giữa tài khoản khách và KTV; voucher người mới một lần mỗi SĐT; chỉ booking đã thanh toán mới được đánh giá | HC-42, HC-101 |
 
-### 3.5 Trợ lý AI (Lead)
+### 3.5 Trợ lý AI (gói 3)
 
 | ID   | Mức  | Phát hiện                                                              | Tác động                                                  | Giải pháp                                                                                                                      | Ticket       |
 | ---- | ---- | ---------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------ |
@@ -114,5 +114,5 @@ Không có biện pháp kỹ thuật nào chặn hoàn toàn việc khách và K
 ## 5. Việc tiếp theo
 
 1. Cả nhóm duyệt tài liệu này và [luồng nghiệp vụ](../specs/luong-nghiep-vu.md) trong buổi họp 24/11.
-2. Gói A cập nhật bảng trạng thái booking trong HC-18 **trước khi code** (đã đổi theo mô hình thanh toán mới).
+2. Gói 1 cập nhật bảng trạng thái booking trong HC-18 **trước khi code** (đã đổi theo mô hình thanh toán mới).
 3. ~~Lead tạo ticket cho các phát hiện chưa có việc và cập nhật mô tả các ticket liên quan trên Jira.~~ Đã xong 23/11: tạo HC-102…HC-107, bổ sung quy tắc vào mô tả 29 ticket, thêm link phụ thuộc, dời HC-48 sang đợt 3.

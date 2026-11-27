@@ -36,5 +36,5 @@ Các sàn thật giải quyết vấn đề này bằng **ví/sổ cái của đ
 - (+) Thu được hoa hồng cả với tiền mặt; tạo động cơ để KTV ở lại sàn mà không cần chặn cứng.
 - (+) Sandbox đơn giản hơn (bỏ authorize/capture); vẫn demo đủ: thành công, thẻ bị từ chối, hủy, IPN lặp, IPN sai chữ ký, hoàn tiền.
 - (−) Khách có thể không trả sau khi nhận dịch vụ: xử lý bằng nợ của khách và chặn đặt lịch mới (PAY-3).
-- (−) Bảng trạng thái booking phải đổi trước khi gói A code HC-18 (thêm `PENDING_DISPATCH`, `ARRIVED`, `WORK_DONE`; bỏ `PENDING_PAYMENT`, `CONFIRMED_CASH`, `PAID`, `EXPIRED`), bằng một migration mới.
+- (−) Bảng trạng thái booking phải đổi trước khi gói 1 code HC-18 (thêm `PENDING_DISPATCH`, `ARRIVED`, `WORK_DONE`; bỏ `PENDING_PAYMENT`, `CONFIRMED_CASH`, `PAID`, `EXPIRED`), bằng một migration mới.
 - (−) Thêm bảng sổ cái và job chuyển thu nhập chờ → khả dụng (dùng hàng đợi HC-86).
